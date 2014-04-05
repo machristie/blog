@@ -1,0 +1,103 @@
+<!--
+vim: ts=4 sw=4 et ai tw=80:
+# Learning Design: An Initial Curriculum
+-->
+
+I'm a programmer, not a designer. And in the past, I've been fine with that.
+I'll do the programming, let the designers do the designing. But now I want to
+learn how to design. And by design I mean just about everything that design can
+mean, both things like visual, graphic design and things like usability and
+information architecture.
+
+Why? What's changed? I would say two things really. First, I think I can learn
+design (I think anyone can learn just about anything if motivated). I used to
+think that it just wasn't my talent. I would tell myself that "I can make things
+work, I just can't make them pretty." Second, I'm curious. I want to learn
+design now. I have come to appreciate that design isn't just "making things
+pretty".  I think that design is about solving the human side of a problem.
+Being a programmer means I can solve the technological side of a problem, but
+that is only half of it. The best code in the world that actually solves a real
+problem won't do anyone good if it isn't usable. And the more that the user
+interface to a system _delights_ users the more impact that solution will have
+in the real world.
+
+I also think that learning design is a better career move than, for example,
+learning functional programming or how to write event-driven, non-blocking web
+server code, or whatever the new hotness is.  I don't expect to become a great
+designer, only a decent one.  I expect I will still need to work with a "real"
+designer on at least some of my projects, maybe all.  But being able to put
+together good looking prototypes, being able to communicate better with
+web/graphic designers, being able to produce decent initial working versions of
+software, being able to layout and organize displays of information in ways that
+are helpful and appealing, all of that makes me better able to deliver software
+solutions and hence make me more valuable to potential employers. Perhaps most
+importantly to me, as an wannabe bootstrapped entrepreneur, it means I can
+create more compelling applications and that I can more fully realize the
+applications that I see in my imagination.
+
+So here's what I'm looking at now as resources for learning design.
+
+#### [Treehouse: Become a Web Designer Adventure](http://teamtreehouse.com/learning-adventures/become-a-web-designer)
+
+I like the idea of an online course. I think it will be easier to consume and
+stay on track.  I also like that Treehouse covers theory (although maybe a
+little light on it by the looks of the curriculum) and also practice, how to use
+the tools of the trade. (But man is Photoshop expensive!)
+
+
+#### [Non-Designer's Design Book by Robin Williams](http://www.amazon.com/Non-Designers-Design-Book-Robin-Williams/dp/0321193857/ref=la_B000APA7OO_1_1?ie=UTF8&qid=1364604565&sr=1-1)
+
+I've seen this book recommended on Hacker News and elsewhere more times than I
+can count.  I'm including it with the hopes it will give me a good foundation in
+the basics of design theory (and practice).
+
+#### [Don't Make Me Think by Steve Krug](http://www.amazon.com/Dont-Make-Me-Think-Usability/dp/0321344758/ref=la_B001KHCFUU_1_1?ie=UTF8&qid=1364604618&sr=1-1)
+
+Another book that comes highly recommended. I realize this list is a little
+light on HCI type topics and perhaps I can add some more useability/user
+experience resources to this list, but I think *Don't Make Me Think* is a good
+place to start.
+
+#### [Drawing on the Right Side of the Brain by Betty Edwards](http://www.amazon.com/Drawing-Right-Side-Brain-Definitive/dp/1585429201/ref=sr_1_1?s=books&ie=UTF8&qid=1364604750&sr=1-1)
+
+I don't think drawing will directly help me with web design, but I do think it
+will get the artistic juices flowing. One of the things I've read about this
+book is that it doesn't so much teach you how to draw as much as it teaches you
+how to really *see*.  That ability to see clearly will help me to see what is
+good in other's design and perhaps also help me see how to make my designs
+better.
+
+#### [Design of Everyday Things by Donald Norman](http://www.amazon.com/Design-Everyday-Things-Donald-Norman/dp/0465067107/ref=la_B000APP96A_1_1?ie=UTF8&qid=1364605106&sr=1-1)
+
+Another highly recommended book, but I haven't read much about it. Looking
+forward to reading it.
+
+#### Copying good designs
+
+What's the saying, *good artists create, great artists steal?*. As part of my
+curriculum I'll study and copy design that I find appealing. Why do they work so
+well?  How do they implement those designs?
+
+I've done something like this before when I was working on learning CSS. I took
+a screenshot of [csszengarden.com](http://www.csszengarden.com), copied the HTML
+and images and wrote the CSS from scratch to match the screenshot.  It was a
+good learning exercise, not just in that I exercised applying what I had learned
+about CSS but after I was done I also compared what I had done to the
+csszengarden.com's CSS code and learned from the approaches they had taken.
+
+#### Notable Mention
+
+In my research, these resources looked interesting and I might use them, but I
+don't have enough time to do everything.
+
+* [Design for Hackers](http://www.amazon.com/gp/product/1119998956)
+* [Designing for the Web](http://designingfortheweb.co.uk/book/index.php) - This
+  is a free resource
+* [HACKDESIGN](http://hackdesign.org/) - free course by email. Actually I think
+  I will sign up for this one. Looks interesting and I've never done a course by
+  email.
+* [Step by Step UI Design](http://sachagreif.com/ebook/) - Step by Step UI
+  Design. Looks really good as a resource for learning more about the actual
+  practice of web design.
+* [HCI course on Coursera](https://www.coursera.org/course/hci)
+

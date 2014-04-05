@@ -1,0 +1,169 @@
+<!--
+vim: ts=4 sw=4 et ai tw=80:
+# Using Codea and Khan Academy to teach computer programming to my daughter
+-->
+
+I've been teaching computer programming to my oldest daughter (who is turning 11
+soon) for the past couple of years or so. We started out with Scratch and she
+had a blast with that. After completing a simple game that she designed and
+developed herself, I asked her what she wanted to do next. She said, "I want to
+do what you do". She knew from watching me work that the visual programming
+environment in Scratch is not how "real" programmers work.
+
+So our next step was to give Python programming a try. We got the book [Invent
+Your Own Computer Games with Python](http://inventwithpython.com/) and started
+working through it. Unfortunately, jumping into Python from Scratch was probably
+a little too tough and the fact that the programs she
+was creating in Python were completely textual meant that it was less engaging.
+So I started thinking about what we could do next.
+
+##### Getting nostalgic for my Atari 800XL
+
+I thought about what computing meant for me when I was her age. Growing up I had
+an [Atari 800XL](http://en.wikipedia.org/wiki/File:Atari-800XL.jpg).  What a
+marvelously simple device compared to what we have available to us today.  There
+were two things that made the Atari 800XL a great first computer for a kid:
+
+1. No internet.
+2. Simple programming environments (BASIC and Turtle graphics).
+
+That first one is a big deal. We don't let our children use computers unattended
+because of the inherent dangers of the world wide web.  I'm sure my parents
+never had any such concerns because my Atari 800XL was never networked at all.
+Because of that I spent a lot of time just playing around on my computer.  I
+remember hours upon hours spent meticulously typing in computer programs from
+magazines such as [Compute!](http://en.wikipedia.org/wiki/Compute!) into my
+800XL.
+
+The second one, simple programming environments, is important too, but there are
+plenty of those to be had. Turtle graphics was particularly good because I could
+get the gratification of generating a visual effect of some sort. Probably the
+most advanced turtle graphics program I wrote (which wasn't very advanced, but I
+was proud of it at the time) was one where I animated a simple line drawing of a
+bird flapping its wings. I could control the bird's position on the screen by
+using a joystick.  That was a lot of fun.
+
+So this got me to thinking. Could I set up a computing environment for my
+daughter that would be easy for us to monitor, allow her to just waste time
+playing around with different ideas and approaches, and allow her to create
+graphical programs?
+
+##### Enter Codea
+
+I thought, what if she could have a turtle graphics like program on our iPad?
+She (like everyone in the family) just adores our iPad.  If she could create
+graphical programs on the iPad, especially if they could respond to touch and
+what not, I thought she would get a big kick out of that.
+
+The iPad still suffers from the problem of having unfettered access to the
+internet, but an app that serves as a self-contained environment would minimize
+the chance that she would ever even end up in Safari.  Also, it's not too hard
+to keep an eye on her using the iPad while in the same room with her.
+
+While Codea is a great programming environment, it's not the the best learning
+environment. I tried coming up with my own lessons, and I also found some Codea
+tutorials online, but nothing was really clicking. She did spend some time just
+exploring and playing with Codea, but that only goes so far.
+
+##### And then we found Khan Academy
+
+Khan Academy has video lessons and an integrated code editor.  Like Codea, it
+offers a [Processing](http://processing.org/) like API.  There are a few nice
+things about Khan Academy.
+
+First, they have a series of tutorials that my daughter is able to watch and
+progress through at her own pace. The tutorials are in sync with actions in the
+code editor, so she can pause the tutorial and experiment with the code at any
+point.  Also nice, the video tutorials are narrated by a woman. It might seem
+like a minor thing but I've noticed that my daughter has picked up on the fact
+that the computer programmer profession is male-dominated, so any reinforcements
+that, _yes, girls program too_, is always nice.
+
+Second, the code editor and the graphical display are side by side. You can see
+the effect of your code changes as you type them.  Codea requires you flip
+between code editing and running your code.
+
+Third, Khan Academy has gamification!  You can earn achievements and badges. You
+can create a "spin-off" of one of the example programs, make it cooler, and then
+other Khan Academy users can vote on them.  Turns out this is very cool for an
+11 year old!
+
+So far, Khan Academy seems to be the most perfect environment to learn computer
+programming that we've found yet.
+
+Since Khan Academy and Codea both use the Processing API, we've experimented
+with moving code between the two environments.  There are some slight syntactic
+differences between JavaScript (Khan Academy) and Lua (Codea) of course. Codea
+also has the vertical axis flipped compared to Khan Academy. Khan Academy names
+some things differently and has some different API methods like:
+
+* `strokeWeight` instead of `strokeWidth`
+* `point(x ,y)`
+* `triangle(x1, y1, x2, y2, x3, y3)`
+
+Here's an example of how I translated the [Intro to
+Animation](http://www.khanacademy.org/cs/intro-to-animation/830742281) lesson
+into Codea (`point` and `triangle` aren't used below, but they are used in some
+Khan Academy programs so I'm including them here just for illustrative purposes):
+
+    :::lua
+    -- KA-Intro to Animation
+
+    -- vim: set ts=4 sw=4 et ai filetype=lua:
+
+    function setup()
+        print("Hello World!")
+    end
+
+    function strokeWeight(weight)
+        strokeWidth(weight)
+    end
+
+    function point(x, y)
+        line(x, y, x, y)
+    end
+
+    function triangle(x1, y1, x2, y2, x3, y3)
+        myMesh = mesh()
+        myMesh.vertices = {vec2(x1,y1),vec2(x2,y2),vec2(x3,y3)}
+        myMesh:draw()
+    end
+
+    function initKhan()
+        -- Khan Academy setup
+        -- set a default stroke "weight" (codea calls this width) and color
+        stroke(0, 0, 0, 255)
+        strokeWeight(1)
+
+        -- translate and scale into Khan Academy coordinate system
+        translate(0, 400)
+        scale(1, -1)
+    end
+
+
+
+    function draw()
+        
+        initKhan()
+        -- this is the draw loop! everything inside this
+        -- function will be run over and over again.
+        background(252, 255, 214)
+        noStroke()
+
+        -- position of the car
+        x = 10
+
+        -- draw the car body
+        fill(255, 0, 115)
+        rect(x, 200, 100, 20)
+        rect(x + 15, 178, 70, 40)
+
+        -- draw the wheels
+        fill(77, 66, 66)
+        ellipse(x + 25, 221, 24, 24)
+        ellipse(x + 75, 221, 24, 24)
+
+    end
+
+So that's where we are so far. I'm hoping we can work toward a project this
+year, like making a mobile app game or something.
