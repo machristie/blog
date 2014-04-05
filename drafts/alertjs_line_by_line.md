@@ -266,19 +266,89 @@ that I think helps demonstrate how they work:
     //$(document).off('.alert'); // removes close.bs.alert and close.alert as well
     $(document).trigger('close');   // triggers 'close.bs' and 'close'
 
-So that's event namespacing and triggering the **close** event.  The next line is
+So that's event namespacing and triggering the **close** event.  The next line
+is to return if the **close** event had `preventDefault` called on it. The idea
+being that a listener for the **close** event could call `e.preventDefault()` to
+prevent the alert from actually closing.
+
+The other custom event that the Alert plugin dispatches is the **closed** event
+which is named `closed.bs.alert`.  It is dispatched when the Alert is actually
+removed from the DOM. We'll see the code to trigger this event in the next
+section where we'll look at how the Alert is faded out and removed from the DOM.
+
+##### Removing and fading out the Alert
+
+Now we'll look at how the Alert is faded out and removed from the DOM.
+
+    :::javascript
+    $parent.removeClass('in')
+
+    function removeElement() {
+      $parent.trigger('closed.bs.alert').remove()
+    }
+
+    $.support.transition && $parent.hasClass('fade') ?
+      $parent
+        .one($.support.transition.end, removeElement)
+        .emulateTransitionEnd(150) :
+      removeElement()
+
+Fading out the Alert is accomplished by using a CSS3 transition. To understand
+how it works, let's look at the CSS:
+
+    :::css
+    .fade {
+        opacity: 0;
+        transition: opacity 0.15s linear 0s;
+    }
+    .fade.in {
+        opacity: 1;
+    }
+
+When an element had the **fade** and **in** classes, it's opacity is 1 and when
+it only has the **fade** class it's opacity is 0. The `transition` CSS property
+defines how quickly and in what way the `opacity` property changes from 0 to 1
+when **in** is added to an element that already has **fade**.  In this case
+however, the `close` method is removing the **in** class which causes the
+opacity to transition, linearly, from 1 to 0, causing it to fade out of view and
+become invisible.
+
+Making the Alert invisible is not enough however. We want to actually remove it
+from the DOM. If we don't then it will still take up space on the web page, it
+just won't be visible.  To accomplish this we need to know when the transition
+finishes.  Once the transition finishes we can then remove the Alert from the
+DOM.
+
+The `removeElement` function is defined so as to trigger the `closed.bs.alert`
+and then remove the Alert from the DOM.  In an ideal world, we'd just bind the
+**transitionend** event to the `removeElement` handler.  However there are a few
+complications:
+
+1. It's possible that the Alert doesn't have the **fade** class, in other words,
+   it is not desired that it actually fade out.  That's fine, the transition is
+   optional.  That's what is checked for with `$parent.hasClass('fade')`.
+2. It's possible that this browser doesn't support CSS transitions. That's what
+   `$.support.transition` is checking for. More on this later.
+3. It's possible that even if the browser supports CSS transitions that it
+   doesn't call the *transition end* event **transitionend**. The
+   `$.support.transition.end` property holds the name of the *transition end*
+   event for that browser.
+4. Finally, it's possible that [the *transition end* event won't be
+   called](http://blog.alexmaccaw.com/css-transitions).  So we need to
+   programmatically dispatch the event if it isn't called. That's what
+   `emulateTransitionEnd(150)` is doing.
+
+You can see the tests Bootstrap does to determine the *transition end* event
+name in
+[transition.js](https://github.com/twbs/bootstrap/blob/master/js/transition.js).
+Also defined in `transition.js` is the `emulateTransitionEnd` function.
+
+So let's go line by line. First, we'll remove the 'in' class which will start
+the transition from opacity 1 to 0 over the course of 0.15 seconds.  Next,
+define a function, `removeElement`, that will be called when the transition
+finishes. We'll bind `removeElement` to the *transition end* event.
 
 
-
-* Explain how the `$parent` is found to close
-    * Question: how does the data-target work?  How do you use that
-        * Create a JSFiddle to demonstrate
-    * Question: how does the `href` thing work?
-        * Create a JSFiddle to demonstrate
-        * See the http://getbootstrap.com/javascript/#modals docs for how these get
-        used
-    * Question: what is the "strip for ie7" regex doing?
-* Bootstrap has custom events it triggers on the `$parent` (during and after)
 * Explain how the fade out and remove works
     * Question: what is `$.support.transition`
     * Question: what is `emulateTransitionEnd`
@@ -301,3 +371,5 @@ So that's event namespacing and triggering the **close** event.  The next line i
 * Tie back to the generality of `close`
 
 **Additional Resources**
+
+* [Using CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_transitions?redirectlocale=en-US&redirectslug=CSS%2FTutorials%2FUsing_CSS_transitions) - at Mozilla Developer Network
