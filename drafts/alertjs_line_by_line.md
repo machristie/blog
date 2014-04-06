@@ -348,20 +348,96 @@ the transition from opacity 1 to 0 over the course of 0.15 seconds.  Next,
 define a function, `removeElement`, that will be called when the transition
 finishes. We'll bind `removeElement` to the *transition end* event.
 
+`removeElement` will trigger the `closed.bs.alert` event, the second custom
+event, and it will remove the Alert from the DOM.
 
-* Explain how the fade out and remove works
-    * Question: what is `$.support.transition`
-    * Question: what is `emulateTransitionEnd`
-    * http://blog.teamtreehouse.com/using-jquery-to-detect-when-css3-animations-and-transitions-end
-    * https://developer.mozilla.org/en-US/docs/Web/Reference/Events/transitionend
-    * https://github.com/twbs/bootstrap/blob/master/js/transition.js
+So next we have a ternary expression. If the browser supports transitions and
+the alert (the `$parent`) has class **fade**, then bind `removeElement` to the
+*transition end* event exactly once (`$parent.one(...)`). The call to
+`emulateTransitionEnd(150)` will set a 150 millisecond timeout and dispatch the
+*transition end* event if it hasn't already been dispatched (again, see
+[transition.js](https://github.com/twbs/bootstrap/blob/master/js/transition.js)
+for details).  If the browser doesn't support Transitions or `$parent` doesn't
+have the **fade** class, then just call `removeElement`.
 
 #### Alert jQuery Plugin Definition
 
-* Explain `return this.each(function...`
-* Explain how jQuery `data` works
-* Explain the string based option for calling methods on the object
-* Question: what is Constructor used for?
+Ok, a brief recap. We've defined the Alert class and it's single `close` method,
+which does almost all of the heavy lifting for this plugin. Now it's time to
+actually define the Alert class as a jQuery plugin. Here's the code:
+
+    :::javascript
+    var old = $.fn.alert
+
+    $.fn.alert = function (option) {
+        return this.each(function () {
+            var $this = $(this)
+            var data  = $this.data('bs.alert')
+
+            if (!data) $this.data('bs.alert', (data = new Alert(this)))
+            if (typeof option == 'string') data[option].call($this)
+        })
+    }
+
+    $.fn.alert.Constructor = Alert
+
+First thing here is to capture the current value of `$.fn.alert` into the `old`
+variable.  This is used later in `noConflict`, and it just a way to prevent this
+`alert` plugin from interfering with another `alert` plugin with the same name.
+
+The `$.fn.alert` function is defined next. The way this function will be used is
+like so
+
+    :::javascript
+    $('.alert').alert();
+
+So `this` refers to the result of a jQuery selector, which means it is an Array
+of DOM elements. So for each matching DOM element we'll run this function:
+
+    :::javascript
+    function() {
+        var $this = $(this)
+        var data  = $this.data('bs.alert')
+
+        if (!data) $this.data('bs.alert', (data = new Alert(this)))
+        if (typeof option == 'string') data[option].call($this)
+    }
+
+Within the scope of this function, `this` refers to the current DOM element.
+`$this` is a jQuery wrapped reference to the DOM element.
+
+When this function creates an `Alert` instance for this DOM element it will
+store it as a reference associated with the DOM element.  `var data =
+$this.data('bs.alert')` is checking if we've already created an `Alert` instance
+for this DOM element.  The third line of the function creates the `Alert`
+instance (`data = new Alert(this)`) if it hasn't already been created and it
+will be saved to the **bs.alert** key:
+
+    :::javascript
+    if (!data) $this.data('bs.alert', (data = new Alert(this)))
+
+Finally, you may have noticed that the plugin function accepts an `options`
+argument.  This is a common jQuery plugin pattern. There aren't any actual
+options for the `Alert` class, but `options` can also be a string with the name
+of a method that you want to invoke on the `Alert` instance.  That's what is
+being done here. `data`, remember, is a reference to the `Alert` instance.
+`data[option]` therefore refers to a function on the `Alert` instance. It is
+called with `$this` as the context (that is, within the method invoked by
+`call`, `this` will refer to `$this`).
+
+Also, as a jQuery plugin best practice, the result of calling `this.each` is
+returned to enable chaining of jQuery function calls.
+
+The other thing we haven't talked about yet is this line:
+
+    :::javascript
+    $.fn.alert.Constructor = Alert
+
+See [this StackOverflow answer](http://stackoverflow.com/a/10526115/1419499).
+Basically, if we don't do this then the `Alert` constructor remains *private* to
+the closure in which we defined it.  This way, other code can directly
+instantiate an `Alert` instance without needing to invoke it indirectly through
+the jQuery API.
 
 #### Alert `noConflict`
 
@@ -373,3 +449,5 @@ finishes. We'll bind `removeElement` to the *transition end* event.
 **Additional Resources**
 
 * [Using CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_transitions?redirectlocale=en-US&redirectslug=CSS%2FTutorials%2FUsing_CSS_transitions) - at Mozilla Developer Network
+* [transitionend](https://developer.mozilla.org/en-US/docs/Web/Reference/Events/transitionend)
+
