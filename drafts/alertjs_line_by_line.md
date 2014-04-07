@@ -441,10 +441,41 @@ the jQuery API.
 
 #### Alert `noConflict`
 
+Now we're at the `noConflict` function:
+
+    :::javascript
+    $.fn.alert.noConflict = function () {
+        $.fn.alert = old
+        return this
+    }
+
+This is a simple convention for handling the situation that there is another
+jQuery plugin also called `alert`.  This function sets `$.fn.alert` to its old
+value and returns `this` which refers to the `$.fn.alert` function defined
+above.
+
 #### Alert Data API
 
-* Explain event namespacing
-* Tie back to the generality of `close`
+Finally we get to the Data API. This allows for purely declarative use of the
+Alert plugin, no JavaScript calls necessary.
+
+    :::javascript
+    $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
+
+This binds the 'click' event for any DOM element in the page matching the
+`dismiss` selector to `Alert`'s `close` method.  Recall that the `dismiss`
+selector was defined as `[data-dismiss="alert"]`.  So any clickable element in
+the page that has the attribute `data-dismiss` with value **alert** will have
+its *click* event handled by `Alert`'s `close` method.
+
+The difference with the Data API is that there is no actual `Alert` instance
+created. Instead `Alert.prototype.close` method is used directly, as a pure
+function. The way `close` will be invoked in this case is basically identical to
+how it will be invoked via the binding we see in the `Alert` constructor:
+
+    :::javascript
+    $(el).on('click', dismiss, this.close)
+
 
 **Additional Resources**
 
