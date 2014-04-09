@@ -1,11 +1,11 @@
-At work I recently need to write a jQuery plugin that uses Bootstrap styling, so
+At work I recently needed to write a jQuery plugin that uses Bootstrap styling, so
 I looked at how
 [alert.js](https://github.com/twbs/bootstrap/blob/master/js/alert.js) is
-implemented, since it is a fairly small plugin.  In this article I'll go over
+implemented, since it is a fairly small plugin.  In this post I'll go over
 `alert.js` line by line, and do my best to explain what is going on. You should
 have a decent understanding of JavaScript and some familiarity with jQuery, but
 I'll assume no knowledge of how to write a jQuery plugin or anything specific to
-Boostrap.
+Bootstrap.
 
 #### Overview
 
@@ -73,9 +73,9 @@ scope like so?
 
 We could do that, but that would only work as long as `$` refers to the `jQuery`
 function.  There are other libraries that define the `$` reference, so in order
-to interoperate with them we'll assume only that there is a `jQuery` reference.
-But it's nice that we can essentially alias `jQuery` to `$` within our plugin
-definition in a lexically scoped and tidy way.
+to interoperate with them we'll assume only that there is a `jQuery` reference
+in the global scope.  But it's nice that we can essentially alias `jQuery` to
+`$` within our plugin definition in a lexically scoped and tidy way.
 
 
 #### `use strict`
@@ -97,7 +97,7 @@ code through the interpreter in a less loosy-goosy manner. Here are some
 benefits of running in strict mode:
 
 * Impossible to accidentally create global variables (for example, mistyped
-  variable names
+  variable names)
 * Severals classes of silent errors become thrown exceptions
 * Simplifies variable naming which allows JavaScript interpreters to better
   optimize code (for example, `eval` doesn't introduce new variables into the
@@ -160,9 +160,9 @@ First, figure out the `$parent` element.  Here's the first part of `close`:
 In the first line of `close`, `this` refers to the element that is the target of
 click event.  So in the standard case where you have a close `<button>` inside a
 `<div class="alert">` element, `this` is the `<button>`.  However, `close` could
-be called directly as we'll see later, so `this` might refer to the alert 
-itself (`<div class="alert">`).  For now, we'll consider the case that `this`
-refers to the close button.
+be called through the plugin function, as we'll see later, so `this` might refer
+to the alert itself (`<div class="alert">`).  For now, we'll consider the case
+that `this` refers to the close button.
 
 The first option to check is a `data-target` attribute on the close button. The
 value is expected to be a selector. You would use it like this:
@@ -186,11 +186,11 @@ This line then checks to see if anything matches those options:
     var $parent = $(selector)
 
 If we haven't set `data-target` or `href` on our close button, or if we have but
-they don't match anything, then `$parent` will have a value of 0.  That's what
+they don't match anything, then `$parent` will have a length of 0.  That's what
 is checked for next.  If we still haven't found `$parent` there are a couple
 more things to try.
 
-So the third option is to check to see `$this` has class **alert**. If it does
+So the third option is to check to see if `$this` has class **alert**. If it does
 then we assume that this is the element that should be faded and removed.  
 
 The fourth option, the default if none of the other checks matched anything, is
@@ -268,7 +268,7 @@ that I think helps demonstrate how they work:
 
 So that's event namespacing and triggering the **close** event.  The next line
 is to return if the **close** event had `preventDefault` called on it. The idea
-being that a listener for the **close** event could call `e.preventDefault()` to
+is that a listener for the **close** event could call `e.preventDefault()` to
 prevent the alert from actually closing.
 
 The other custom event that the Alert plugin dispatches is the **closed** event
@@ -305,8 +305,8 @@ how it works, let's look at the CSS:
         opacity: 1;
     }
 
-When an element had the **fade** and **in** classes, it's opacity is 1 and when
-it only has the **fade** class it's opacity is 0. The `transition` CSS property
+When an element has the **fade** and **in** classes, its opacity is 1 and when
+it only has the **fade** class its opacity is 0. The `transition` CSS property
 defines how quickly and in what way the `opacity` property changes from 0 to 1
 when **in** is added to an element that already has **fade**.  In this case
 however, the `close` method is removing the **in** class which causes the
@@ -343,7 +343,7 @@ name in
 [transition.js](https://github.com/twbs/bootstrap/blob/master/js/transition.js).
 Also defined in `transition.js` is the `emulateTransitionEnd` function.
 
-So let's go line by line. First, we'll remove the 'in' class which will start
+So let's go line by line. First, we'll remove the **in** class which will start
 the transition from opacity 1 to 0 over the course of 0.15 seconds.  Next,
 define a function, `removeElement`, that will be called when the transition
 finishes. We'll bind `removeElement` to the *transition end* event.
@@ -433,11 +433,12 @@ The other thing we haven't talked about yet is this line:
     :::javascript
     $.fn.alert.Constructor = Alert
 
-See [this StackOverflow answer](http://stackoverflow.com/a/10526115/1419499).
-Basically, if we don't do this then the `Alert` constructor remains *private* to
-the closure in which we defined it.  This way, other code can directly
-instantiate an `Alert` instance without needing to invoke it indirectly through
-the jQuery API.
+See [this StackOverflow answer for a long
+explanation](http://stackoverflow.com/a/10526115/1419499).  but, basically, if
+we don't do this then the `Alert` constructor remains *private* to the closure
+in which we defined it.  By creating the `Constructor` reference, other code can
+directly instantiate an `Alert` instance without needing to invoke it indirectly
+through the jQuery API.
 
 #### Alert `noConflict`
 
