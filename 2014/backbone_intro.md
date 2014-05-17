@@ -1,8 +1,9 @@
 
-[Backbone|http://backbonejs.org/] is a JavaScript Model-View-Controller (MVC) library that can be used
-to create single page applications (SPAs). This article introduces the most
-important concepts in Backbone (Models, Collections, Views, Events, Router and
-Sync) and how they relate to building a client side JavaScript application.
+[Backbone](http://backbonejs.org/) is a JavaScript Model-View-Controller (MVC)
+library that can be used to create single page applications (SPAs). This article
+introduces the most important concepts in Backbone (Models, Collections, Views,
+Events, Router and Sync) and how they relate to building a client side
+JavaScript application.
 
 #### What is Model-View-Controller (MVC)?
 
@@ -68,7 +69,7 @@ methods on the View class that will update Models.
 `Backbone.Router` is also the controller in the traditional MVC understanding.
 The Router responds to user requests for specific URLs and can handle them by
 showing the right type of Views and by making sure that Model instances are
-available to be shown and interacted with.
+available.
 
 `Backbone.sync` is the RESTful persistence mechanism for saving/updating models.
 In Backbone, the models (Model and Collection instances) know how to persist
@@ -81,15 +82,30 @@ model, which are just two representations of the same domain object.)
 #### Events
 
 * namespacing
-* listenTo
-* stopListening
+    * Use a colon to namespace
+    * this allows you to listen for all events in that namespace
+    * Example: "change:property"
+* on/off/trigger
+    * Event.on(event, listener) adds a listener
+    * Event.off(event, listener) removes listener
+    * Event.trigger(event)
+* listenTo/stopListening
+    * The problem these solves is that you have a View listening to a Model,
+      which means that the Model has a reference to the View. If you forget to
+      remove that listener then the View will not get garbage collected.
 * DOM events
+    * events hash sets up DOM event listeners. `this` refers to the View.
+    * jQuery.on, `this` is the DOM element.
 
 #### Model
 
+* creating a new Model class
+    * Extend the Model class
+    * add a `defaults` property to specify default values for new Model
+      instances
 * get/set
-* id/cid
-* events
+    * getting and setting properties via get/set
+    * set causes 'change' event to be dispatched
 
 #### Collection
 
