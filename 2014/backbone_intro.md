@@ -109,27 +109,70 @@ model, which are just two representations of the same domain object.)
 
 #### Collection
 
-* add/remove/create
-* events
+* model - set the Model class for this collection
+    * model events are redispatched by collection so you can listen to the
+      collection
+* add/remove
+    * reset - doesn't fire add/remove events. Does dispatch 'reset' event. It's
+      there for efficiency.
+* Underscore methods
+    * each
+* create/fetch
+    * we'll cover these in Sync below
 
 #### View
 
-* el, tagName, className, id
-* model
-* initialize/listenTo
-* events hash
-* render
-* remove
+* View's always have a DOM element
+    * tagName, className, id, attributes will be set on the DOM that View
+      creates
+    * el is a reference to this DOM element. However, you can specify the DOM
+      element to attach to if already in the page, by setting el to a selector.
+    * $el is a jQuery wrapped reference to the DOM element
+* Binding to the model/collection
+    * constructor/initialize function options. You can specify the
+      model/collection in the options
+    * this.listenTo( model, 'change', this.render )
+    * `this` refers to the View instance
+* Binding to DOM events
+    * event hash
+        'eventName selector': 'functionName'
+    * `this` refers to the View instance
+* Rendering the View
+    * template
+        * Underscore templates: _.template( $('#template-id').html() );
+        * <script type="text/template" id="template-id">
+    * render
+        * this.$el.html( this.template( this.model.toJSON() ) );
+    * this.$ is a jQuery reference
+* Disposing of a View
+    * View.remove
+        * removes the DOM element
+        * calls stopListening to remove all event listeners
 
 #### Router
 
-* routes
+* Router allows mapping URLs to actions and events.
+    * Route for an email app might be a mail folder or a contact listing.
+    * routes can have parameters or "splats"
+        * parameters use the :param syntax, "splats" use *param
 * Backbone.history.start()
+    * support for History API via {pushState: true}
 
 #### Sync
+
+* Backbone.sync has default support for RESTfully retrieving and saving models,
+  assuming a JSON API
+    * Collections define the URL "/books"
+    * Collection.create maps to a POST to the URL /books
+    * Collection.fetch maps to a GET to the URL /books
+    * Collection.update maps to a PUT to the URL /books/{id}
+    * Collection.delete maps to a DELETE to the URL /books/{id}
+* You can override Backbone.sync to specify a custom method. Or you can override
+  Backbone.ajax to just override the default Ajax behavior.
 
 
 #### Additional Resources
 
+* [Backbone Fundamentals](http://addyosmani.github.io/backbone-fundamentals/)
 * [History of MVC](http://heim.ifi.uio.no/~trygver/themes/mvc/mvc-index.html)
 * [C2's MVC page](http://c2.com/cgi/wiki?ModelViewController)
