@@ -91,46 +91,110 @@ model, which are just two representations of the same domain object.)
 underscore's `_.extend` mechanism, and it is mixed in to `Backbone.View`,
 `Backbone.Model` etc. So these methods are available from most Backbone types.
 
-By convention, Backbone Events are often *namespaced*, but there is no extra
-support for namespaced events really. For example, you can listen to all changes
+By convention, Backbone Events are often *namespaced*. For example, you can listen to all changes
 on a model with `model.on("change", listener)`, but you can also listen to just
-a change of the property `"name"` with `model.on("change:name", listener)`. This
-works because `Backbone.Model` dispatches an event for each property that
-changes and also a "change" event.  This is just a convention though. If you
-listen for `"foo"` and a `"foo:bar"` event is trigger your event listener will
-not be called.  You would have to trigger both `"foo"` and `"foo:bar"` in your
-code.
+a change of the property `"name"` with `model.on("change:name", listener)`.
 
-* listenTo/stopListening
-    * The problem these solves is that you have a View listening to a Model,
-      which means that the Model has a reference to the View. If you forget to
-      remove that listener then the View will not get garbage collected.
-* DOM events
-    * events hash sets up DOM event listeners. `this` refers to the View.
-    * jQuery.on, `this` is the DOM element.
+But keep in mind there is no extra support in the implementation of
+`Backbone.Events` for namespaced events really, not like [jQuery namespaced
+events](http://marcus-christie.blogspot.com/2014/04/bootstraps-alertjs-plugin-line-by-line.html).
+`"change:name"` works because `Backbone.Model` dispatches an event for each
+property that changes and also a "change" event.  As another example, if you
+listen for `"foo"` and a `"foo:bar"` event is triggered, your event listener
+will not be called.  You would have to trigger both `"foo"` and `"foo:bar"` in
+your code if you wanted to support namespacing.
+
+One problem with setting up event listeners, especially with a View listening to
+changes on a Model, is that the object being listened to has a reference to the
+listener.  For example, let's say you have a ContactView that is listening for
+changes to a Contact Model instance. If you dispose of the ContactView but
+forget to remove all of the event listeners, then the Contact Model still has a
+reference to your ContactView.  This leads to a couple problems. First, your
+ContactView instance won't get garbage collected, so your app is now leaking
+memory. Second, whenever the Contact Model updates it will continue to call the
+event listener on the *zombie* ContactView and update it, so you have a lot of
+unnecessary code execution (and debugging this can get really confusing when you
+see code executed several times instead of just once as expected).
+
+To solve this, `Backbone.Events` has two helpful methods, `listenTo` and
+`stopListening`.  `listenTo` has this method signature
+
+    :::JavaScript
+    object.listenTo(other, event, callback)
+
+Whereas you call `on` on the object you want to listen to, `listenTo` is called
+on the listening object.  The advantage here is that the listening object can
+keep track of all of the listeners and can remove them all at once, which is
+what `stopListening` does.
+
+One other note about events. In a Backbone app, you typically have two types of
+events: Backbone events and DOM events.  DOM events are typically set up for a
+View in the *events hash*, which we'll get to later.  When using the *events
+hash*, `this` refers to the View, pretty much what you expect.  However, keep in
+mind, if you use the jQuery API to bind to DOM events then `this` refers to the
+DOM element.
 
 #### Model
 
-* creating a new Model class
-    * Extend the Model class
-    * add a `defaults` property to specify default values for new Model
-      instances
-* get/set
-    * getting and setting properties via get/set
-    * set causes 'change' event to be dispatched
+To create a `Backbone.Model`, extend the `Backbone.Model` class.  You can
+specify `default` values for various properties.
+
+    :::javascript
+    app.Todo = Backbone.Model.extend({
+
+        // Default attributes ensure that each todo created has `title` and `completed` keys.
+        defaults: {
+            title: '',
+            completed: false
+        }
+    });
+
+To instantiate a Model instance, call the constructor and pass in the attributes
+for the instance.  Any defaulted attributes that aren't specified will receive
+their default values.
+
+Models have `get` and `set` functions for reading and writing attribute values.
+As mentioned above, calling `set("myattr", newvalue)` causes two events to be
+dispatched: "change:myattr" and "change".
+
+Models also have a special property called `id` which uniquely identifies a
+Model instance. This can be set to an integer or UUID string.  You pass it in
+the attributes hash when creating a Model instance. You can also set the
+`idAttribute` property on the Model class if you have a property on your Models
+that can be used to uniquely identify instances.
 
 #### Collection
 
-* model - set the Model class for this collection
-    * model events are redispatched by collection so you can listen to the
-      collection
-* add/remove
-    * reset - doesn't fire add/remove events. Does dispatch 'reset' event. It's
-      there for efficiency.
-* Underscore methods
-    * each
-* create/fetch
-    * we'll cover these in Sync below
+Create a new Collection by extending `Backbone.Collection`. You typically set
+the `model` property to the Model class of this collection.
+
+    :::JavaScript
+    var TodoList = Backbone.Collection.extend({
+
+        // Reference to this collection's model
+        model: app.Todo,
+
+    });
+
+Collections redispatch Model events, so you can simply listen, for example, to
+"change" events on the Collection and you'll be notified whenever a Model
+instance changes.
+
+You can `add` and `remove` Models to and from a Collection. These methods will
+dispatch "add" and "remove" events.  Removing a model occurs when you call
+`remove` and pass in a Model instance that has the same `id` as a Model instance
+already in the Collection. Collections also have a `reset` method which updates
+the Collection all at once and dispatches just a single "reset" event, which is
+more efficient for example when initially loading a Collection.
+
+[Collections have several Underscore
+methods](http://backbonejs.org/#Collection-Underscore-Methods), like `_.each`,
+that you can call directly.
+
+Collections are typically where you will set up the RESTful URL by setting the
+`url` property.  You can then call `fetch` to retrieve all of the model
+instances in the collection and add them to the collection instance. We'll look
+at this more in the *Sync* section below.
 
 #### View
 
@@ -152,7 +216,7 @@ code.
 * Rendering the View
     * template
         * Underscore templates: _.template( $('#template-id').html() );
-        * <script type="text/template" id="template-id">
+        * `<script type="text/template" id="template-id">`
     * render
         * this.$el.html( this.template( this.model.toJSON() ) );
     * this.$ is a jQuery reference
@@ -186,6 +250,8 @@ code.
 #### Additional Resources
 
 * [Backbone Fundamentals](http://addyosmani.github.io/backbone-fundamentals/)
+    * A lot of the code examples in this blog post come from Backbone
+      Fundamentals. **Highly recommended.**
 * [History of MVC](http://heim.ifi.uio.no/~trygver/themes/mvc/mvc-index.html)
 * [C2's MVC page](http://c2.com/cgi/wiki?ModelViewController)
 * [Namespacing events is just a convention @ StackOverflow](http://stackoverflow.com/a/22803629/1419499)
