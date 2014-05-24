@@ -81,14 +81,26 @@ model, which are just two representations of the same domain object.)
 
 #### Events
 
-* namespacing
-    * Use a colon to namespace
-    * this allows you to listen for all events in that namespace
-    * Example: "change:property"
-* on/off/trigger
-    * Event.on(event, listener) adds a listener
-    * Event.off(event, listener) removes listener
-    * Event.trigger(event)
+`Backbone.Events` provides standard event listening and triggering behavior.
+
+    * `Events.on(event, listener)` adds a listener
+    * `Events.off(event, listener)` removes listener
+    * `Events.trigger(event)`
+
+`Backbone.Events` can also be *mixed in* to other objects or classes via
+underscore's `_.extend` mechanism, and it is mixed in to `Backbone.View`,
+`Backbone.Model` etc. So these methods are available from most Backbone types.
+
+By convention, Backbone Events are often *namespaced*, but there is no extra
+support for namespaced events really. For example, you can listen to all changes
+on a model with `model.on("change", listener)`, but you can also listen to just
+a change of the property `"name"` with `model.on("change:name", listener)`. This
+works because `Backbone.Model` dispatches an event for each property that
+changes and also a "change" event.  This is just a convention though. If you
+listen for `"foo"` and a `"foo:bar"` event is trigger your event listener will
+not be called.  You would have to trigger both `"foo"` and `"foo:bar"` in your
+code.
+
 * listenTo/stopListening
     * The problem these solves is that you have a View listening to a Model,
       which means that the Model has a reference to the View. If you forget to
@@ -176,3 +188,4 @@ model, which are just two representations of the same domain object.)
 * [Backbone Fundamentals](http://addyosmani.github.io/backbone-fundamentals/)
 * [History of MVC](http://heim.ifi.uio.no/~trygver/themes/mvc/mvc-index.html)
 * [C2's MVC page](http://c2.com/cgi/wiki?ModelViewController)
+* [Namespacing events is just a convention @ StackOverflow](http://stackoverflow.com/a/22803629/1419499)
