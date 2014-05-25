@@ -198,32 +198,110 @@ at this more in the *Sync* section below.
 
 #### View
 
-* View's always have a DOM element
-    * tagName, className, id, attributes will be set on the DOM that View
-      creates
-    * el is a reference to this DOM element. However, you can specify the DOM
-      element to attach to if already in the page, by setting el to a selector.
-    * $el is a jQuery wrapped reference to the DOM element
-* Binding to the model/collection
-    * constructor/initialize function options. You can specify the
-      model/collection in the options
-    * this.listenTo( model, 'change', this.render )
-    * `this` refers to the View instance
-* Binding to DOM events
-    * event hash
-        'eventName selector': 'functionName'
-    * `this` refers to the View instance
-* Rendering the View
-    * template
-        * Underscore templates: _.template( $('#template-id').html() );
-        * `<script type="text/template" id="template-id">`
-    * render
-        * this.$el.html( this.template( this.model.toJSON() ) );
-    * this.$ is a jQuery reference
-* Disposing of a View
-    * View.remove
-        * removes the DOM element
-        * calls stopListening to remove all event listeners
+Backbone View's always have a DOM element that they can render into. By default
+`Backbone.View` will create the DOM element for you, but if the DOM element you
+want to attach this View instance to is already in the page you can set `el` to
+a selector for that DOM element
+
+    :::JavaScript
+    var MyView = Backbone.View.extend({
+        el: '#myview',
+        //...
+    });
+
+If you let Backbone create your DOM element, you can specify `tagName`,
+`className`, `id` and `attributes` to be set on that DOM element and Backbone
+will apply them. That is, if you specify a `tagName` of *li* and a `className`
+of *todo-item*, Backbone will create a `<li class="todo-item" />` element in the
+DOM for you.
+
+As a convenience, View's also have a `$el` property which is the jQuery wrapper
+reference to the View's DOM element.
+
+A typical thing to do when you initialize a View is to pass it the `model` or
+`collection` instance you want it to bind to.  In the View's `initialize`
+method, you can then bind to changes to that Model or Collection:
+
+    :::JavaScript
+    var TodoView = Backbone.View.extend({
+        tagName: "li",
+        className: "todo-item",
+        initialize: function(){
+            this.listenTo( this.model, "change", this.render );
+            //...
+        }
+    });
+
+    var todo = new TodoView({model: aTodo});
+
+Besides binding to events on the Model, a View typically binds to DOM events.
+This is one of the *controller-ish* things a Backbone View does. To bind to DOM
+events, specify the `events` hash when creating the view. The keys in the events
+hash are in the form of `'eventName selector'` and the value of each is the name
+of a function (or a function reference instead if you want).
+
+    :::JavaScript
+    var TodoView = Backbone.View.extend({
+        events: {
+            'click .toggle': 'toggleCompleted',
+            // ...
+        }
+    });
+
+Inside of a DOM event handler, `this` refers to the View.
+
+To actually render a view to the page, you provide an implementation of
+`render`. The job of `render` is to update `this.el` however necessary.  The
+typical way to do this is to have a String based template, by default, an
+[Underscore template](http://underscorejs.org/#template). You'll set `template`
+in a view to a template function that takes an object with the properties of
+your model and returns a String of HTML with the model properties applied.
+
+There are several approaches to how to organize your templates, but the simplest
+way is to put them in the web page inside a `<script>` tag with type set to
+*text/template*.
+
+    :::html
+    <script type="text/template" id="template-id">
+        <input type="checkbox" <%= completed ? 'checked' : '' %> />
+        <label><%- description></label>
+    </script>
+
+In your View class, you can read in the template once with 
+
+    :::javascript
+    //... inside View class
+        template: _.template( this.$('#template-id').html() );
+
+Then to render you can implement `render` like so:
+
+    :::javascript
+    //... inside View class
+        render: function() {
+            this.$el.html( this.template( this.model.toJSON() ) );
+
+            // Anything else you might want to do...
+
+            return this;
+        }
+
+Note that `this.$` is a reference to the jQuery object. Also, `render` returns
+`this` so that parent View components can render child View components and then
+include them in themselves.  For example, a container of these TodoView
+instances might do something like:
+
+    :::javascript
+        render: function() {
+
+            todos.each( function(todo) {
+                var todoView = new TodoView({model: todo});
+                this.$el.append( todoView.render().el );
+            }
+        }
+
+When you are done with a View, you can call `remove` on it. This removes
+`this.el` from the DOM and also calls `stopListening` to remove all of its event
+listeners.
 
 #### Router
 
