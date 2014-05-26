@@ -305,12 +305,51 @@ listeners.
 
 #### Router
 
-* Router allows mapping URLs to actions and events.
-    * Route for an email app might be a mail folder or a contact listing.
-    * routes can have parameters or "splats"
-        * parameters use the :param syntax, "splats" use *param
-* Backbone.history.start()
-    * support for History API via {pushState: true}
+`Backbone.Router` allows mapping URLs to actions and events.  You create a
+router instance by extending `Backbone.Router`. You can specify a `routes` hash
+that maps url patterns to function names (or function references). This is
+somewhat similar to the events hash in a View.
+
+Route url patterns can use the `:param` syntax of the `*param` splat syntax.
+`:param` is used to match a part of a URL.  A splat matches the rest of the URL.
+
+    :::javascript
+    var Router = Backbone.Router.extend({
+
+        routes: {
+            '/search/:query': 'search',
+            //....
+        },
+
+        search: function(query){
+        }
+    });
+
+An example of how you would use a Router, consider an email application. When
+the user navigates to an email folder, the app will display a list of the email
+messages in folder. You would set up a route for an email folder, maybe like so:
+
+    :::javascript
+    routes: {
+        '/folder/:folderId': 'goToFolder'
+    }
+
+Then when a user clicks on a the email folder, you can call
+`Router.navigate('/folder/123', {trigger: true})`.  If you want to handle
+updating the view to show the folder and just have the router update the URL,
+you can not pass `{trigger: true}`.
+
+So now you need to kick things off for your app and have your Router handle
+whatever the current URL is. To do that you call `start` on `Backbone.history`.
+
+    :::javascript
+    var appRouter = new Router();
+    Backbone.history.start({pushState: true});
+
+Backbone.history is a kind of global router. It can make use of the History API,
+calling pushState if available, falling back to updating the URL fragment if not
+available. You have to pass `{pushState: true}` to `start` to make use of
+pushState; it is something you opt into in Backbone.
 
 #### Sync
 
@@ -333,3 +372,4 @@ listeners.
 * [History of MVC](http://heim.ifi.uio.no/~trygver/themes/mvc/mvc-index.html)
 * [C2's MVC page](http://c2.com/cgi/wiki?ModelViewController)
 * [Namespacing events is just a convention @ StackOverflow](http://stackoverflow.com/a/22803629/1419499)
+* [Caniuse.com pushState](http://caniuse.com/history)
