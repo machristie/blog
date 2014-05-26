@@ -353,15 +353,30 @@ pushState; it is something you opt into in Backbone.
 
 #### Sync
 
-* Backbone.sync has default support for RESTfully retrieving and saving models,
-  assuming a JSON API
-    * Collections define the URL "/books"
-    * Collection.create maps to a POST to the URL /books
-    * Collection.fetch maps to a GET to the URL /books
-    * Collection.update maps to a PUT to the URL /books/{id}
-    * Collection.delete maps to a DELETE to the URL /books/{id}
-* You can override Backbone.sync to specify a custom method. Or you can override
-  Backbone.ajax to just override the default Ajax behavior.
+`Backbone.sync` handles persistence. By default, it supports RESTfully
+retrieving and saving models to a server, assuming a JSON API.  In the simplest
+cases, you just define the base url on your Collections.
+
+    :::javascript
+    app.Library = Backbone.Collection.extend({
+        model: app.Book,
+        url: '/api/books'
+    });
+
+When you call the following methods, the following URLs are invoked via AJAX:
+
+* Collection.create maps to a POST to the URL /books
+    * Collection.create is a convenience function that saves the new model to
+      the server and adds it to the Collection.
+* Collection.fetch maps to a GET to the URL /books
+* Collection.update maps to a PUT to the URL /books/{id}
+* Collection.delete maps to a DELETE to the URL /books/{id}
+
+There's a lot you can customize however.  Models can implement `Model.parse` to
+have custom response parsing logic.  You can override `Backbone.ajax` to
+customize the AJAX logic. And you can go whole hog and override `Backbone.sync`
+to completely customize how to load/persist data, for example, [using
+LocalStorage as a backing store for your app](https://github.com/jeromegn/Backbone.localStorage).
 
 
 #### Additional Resources
