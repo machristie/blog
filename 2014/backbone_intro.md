@@ -20,15 +20,15 @@ framework:
 
 * **Model** - this is the representation of data that models the domain of
   interest.  For example, for a TODO application, a model might be a TODO item.
-  But Models are just data structures, they also contain the domain logic. A
+  But Models aren't just data structures, they also contain the domain logic. A
   TODO item might expose a `complete` method that knows how to mark a TODO item
   as completed and properly manage any additional details related to task
   completion.
-* **View** - views are visual representations of models. A view reacts to changes
-  in a model by updating the view to reflect that change.
-* **Controller** - controllers handle user input, both displaying views that
-  the user requests and handling keyboard and mouse events.  Controllers
-  typically translate user input into updates on Model instances.
+* **View** - views are visual representations of models. A view reacts to
+  changes in a model by updating the view to reflect that change.
+* **Controller** - controllers handle user input, both displaying views that the
+  user requests and handling keyboard and mouse events.  Controllers typically
+  translate user input into updates on Model instances.
 
 The goal is separation of concerns. Models know nothing of views; in a web
 application, models would have nothing in them relating to HTML or CSS, for
@@ -66,10 +66,10 @@ is typical to have a template. The template is more the V of MVC than the View
 class. `Backbone.View` also acts as a Controller in that it binds user events to
 methods on the View class that will update Models.
 
-`Backbone.Router` is also the controller in the traditional MVC understanding.
-The Router responds to user requests for specific URLs and can handle them by
-showing the right type of Views and by making sure that Model instances are
-available.
+`Backbone.Router` is also fairly controller-ish in the traditional MVC
+understanding.  The Router responds to user requests for specific URLs and can
+handle them by showing the right type of Views and by making sure that Model
+instances are available.
 
 `Backbone.sync` is the RESTful persistence mechanism for saving/updating models.
 In Backbone, the models (Model and Collection instances) know how to persist
@@ -83,9 +83,9 @@ model, which are just two representations of the same domain object.)
 
 `Backbone.Events` provides standard event listening and triggering behavior.
 
-    * `Events.on(event, listener)` adds a listener
-    * `Events.off(event, listener)` removes listener
-    * `Events.trigger(event)`
+* `Events.on(event, listener)` adds a listener
+* `Events.off(event, listener)` removes listener
+* `Events.trigger(event)`
 
 `Backbone.Events` can also be *mixed in* to other objects or classes via
 underscore's `_.extend` mechanism, and it is mixed in to `Backbone.View`,
@@ -131,8 +131,8 @@ One other note about events. In a Backbone app, you typically have two types of
 events: Backbone events and DOM events.  DOM events are typically set up for a
 View in the *events hash*, which we'll get to later.  When using the *events
 hash*, `this` refers to the View, pretty much what you expect.  However, keep in
-mind, if you use the jQuery API to bind to DOM events then `this` refers to the
-DOM element.
+mind, if you programmatically use the jQuery API to bind to DOM events then
+`this` refers to the DOM element.
 
 #### Model
 
@@ -215,7 +215,7 @@ will apply them. That is, if you specify a `tagName` of *li* and a `className`
 of *todo-item*, Backbone will create a `<li class="todo-item" />` element in the
 DOM for you.
 
-As a convenience, View's also have a `$el` property which is the jQuery wrapper
+As a convenience, View's also have a `$el` property which is the jQuery wrapped
 reference to the View's DOM element.
 
 A typical thing to do when you initialize a View is to pass it the `model` or
@@ -273,7 +273,7 @@ In your View class, you can read in the template once with
     //... inside View class
         template: _.template( this.$('#template-id').html() );
 
-Then to render you can implement `render` like so:
+Then you can implement `render` like so:
 
     :::javascript
     //... inside View class
@@ -325,22 +325,25 @@ Route url patterns can use the `:param` syntax of the `*param` splat syntax.
         }
     });
 
-An example of how you would use a Router, consider an email application. When
+As an example of how you would use a Router, consider an email application. When
 the user navigates to an email folder, the app will display a list of the email
-messages in folder. You would set up a route for an email folder, maybe like so:
+messages in that folder. You would set up a route for an email folder, maybe
+like so:
 
     :::javascript
     routes: {
         '/folder/:folderId': 'goToFolder'
     }
 
-Then when a user clicks on a the email folder, you can call
+Then when a user clicks on the email folder, you can call
 `Router.navigate('/folder/123', {trigger: true})`.  If you want to handle
 updating the view to show the folder and just have the router update the URL,
-you can not pass `{trigger: true}`.
+you would not pass `{trigger: true}`.
 
 So now you need to kick things off for your app and have your Router handle
-whatever the current URL is. To do that you call `start` on `Backbone.history`.
+whatever the current URL is (for example, if the user bookmarked that email
+folder link and navigated to it directly). To do that you call `start` on
+`Backbone.history`.
 
     :::javascript
     var appRouter = new Router();
@@ -365,12 +368,12 @@ cases, you just define the base url on your Collections.
 
 When you call the following methods, the following URLs are invoked via AJAX:
 
-* Collection.create maps to a POST to the URL /books
+* Collection.create maps to a POST to the URL `/api/books`
     * Collection.create is a convenience function that saves the new model to
       the server and adds it to the Collection.
-* Collection.fetch maps to a GET to the URL /books
-* Collection.update maps to a PUT to the URL /books/{id}
-* Collection.delete maps to a DELETE to the URL /books/{id}
+* Collection.fetch maps to a GET to the URL `/api/books`
+* Collection.update maps to a PUT to the URL `/api/books/{id}`
+* Collection.delete maps to a DELETE to the URL `/api/books/{id}`
 
 There's a lot you can customize however.  Models can implement `Model.parse` to
 have custom response parsing logic.  You can override `Backbone.ajax` to
