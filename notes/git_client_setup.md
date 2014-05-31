@@ -1,4 +1,9 @@
 
+# TODO
+
+1. push.default=simple
+2. merge.defaultToUpstream=true
+
 # Git client setup
 
 ## Git global configuration
