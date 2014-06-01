@@ -1,9 +1,4 @@
 
-# TODO
-
-1. push.default=simple
-2. merge.defaultToUpstream=true
-
 # Git client setup
 
 ## Git global configuration
@@ -25,7 +20,7 @@ You can also use gvimdiff as a merge tool, but I haven't tried this yet.
 
 ## Excludes file
 
-Set up a global excludes file in `~/.config/git/ignore`. My entries so far
+Set up a global excludes file in `~/.config/git/ignore`. My entries so far:
 
     *.swp
     .DS_Store
@@ -83,6 +78,26 @@ Now you can start up a web viewer with
 As a Mercurial refugee, I got used to `hg serve` so I like to have a web view.
 
 Haven't tried doing this on Windows yet.
+
+## push.default
+
+Set `push.default` to simple:
+
+    git config --global push.default simple
+
+This setting affects what happens when you do a `git push` without specifing a
+remote or branch to push.  With *simple* git will push the current branch to the
+upstream tracked branch.  This mode also is the new default in Git 2.0.
+
+## merge.defaultToUpstream
+
+Set `merge.defaultToUpstream` to true
+
+    git config --global merge.defaultToUpstream true
+
+This setting affects what happens when you do a `git merge` without specifying a
+branch to merge from. With this set to true, git will merge in changes from the
+upstream remote tracking branch, which is generally what you want.
 
 [1]: http://stackoverflow.com/questions/4737381/git-editor-not-working-with-macvim
 [2]: http://gitcredentialstore.codeplex.com/
