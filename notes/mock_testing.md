@@ -39,8 +39,15 @@
 * third party api, no control over
 * simulating exceptions?
 * state/result verification is hard/impossible and verifying behavior is about the only option
+* dealing with external dependencies like filesystem or databases
 
 ## Advantages to using Mocks?
 
 * better test isolation.  If there is a bug in a class, only the test for that class fails, but with classic style several tests may fail.
 
+## Good practices when using Mocks
+
+* When using Mocks in a test class, mock expectations should be factored out
+  into their own method so that the mock dependency is called once in the test
+  class. This makes it easier to refactor code later on since you would
+  theoretically only have to update the dependency mock call once.
