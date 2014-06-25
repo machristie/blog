@@ -92,11 +92,12 @@ to model/collection updates.
 
 I might add to my router the ability to let pages know when they are being
 hidden or shown and that would allow a page to deal with offscreen rendering
-performance issues. One thing a page View might do is unbind its listeners which
-might be appropriate if intermediate events can be safely ignored.  Another
-thing a page View might do when not being shown is continue to listen for events
-but defer and re-rendering until actually shown.  I'll explore this more as
-needed, but I need a real world example to guide the design.
+performance issues. One thing a page View might do is unbind its listeners when
+being hidden and rebind them when being shown again, which might be appropriate
+if intermediate events can be safely ignored.  Another thing a page View might
+do when not being shown is continue to listen for events but defer any
+re-rendering until actually shown.  I'll explore this more as needed, but I need
+a real world example to guide the design.
 
 # Enhancing pages
 
@@ -132,7 +133,8 @@ discouraged for performance reasons.
   thinking that eventually I might add a `transitions` hash to the Router that
   would allow you to define page to page transitions, something like
 
-    transitions: {
-        'page1:page2':  'slide',
-        // etc...
-    }
+        :::javascript
+        transitions: {
+            'page1:page2':  'slide',
+            // etc...
+        }
