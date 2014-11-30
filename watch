@@ -1,0 +1,11 @@
+#!/bin/sh
+
+TMPDIR=`mktemp -d /tmp/markdown.XXXXXXXX`
+TMP=$TMPDIR/t.html
+MARKDOWN="markdown_py -x codehilite -x tables"
+COMMAND="$MARKDOWN $1"
+$COMMAND > $TMP
+open $TMP
+exec watchmedo shell-command \
+	--command="$COMMAND > $TMP"\
+	`dirname $1`
