@@ -50,3 +50,64 @@ How would this work in practice?  In this section I'll go over a couple of
 common mobile UI patterns and how they would adapt to a larger viewport.
 
 ##### Separate "pages" (mobile) vs in-page controls (desktop)
+
+Sometimes the ideal view on mobile is very different from the ideal view on
+desktop. A common pattern here is that on desktop you have enough room to
+display all controls on the same screen, but on mobile you might want a separate
+full page view for certain actions.  For example, imagine an airplane flight
+search application.  On desktop you could have the fields for departing city and
+arriving city and dates on one page and display the results under those
+controls.  On mobile, there isn't enough room for this so you would rather have
+a separate full page view for specifying search criteria.
+
+In some ways, this is the least ideal situation. It is always better to be able
+to reuse the same controls and just style them differently using media queries.
+However, we must anticipate that this might not always be possible and think
+about what we could do in that situation.
+
+To accomplish this, we could simply include the mobile full page alternate view
+in the page, hidden unless the width of the page is wide enough.  By default,
+the mobile view is hidden.
+
+    :::css
+    #mobile {
+        display:none;
+        background-color: #fff;
+        z-index:1000;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    @media only screen and (max-width: 480px) {
+        .desktop-only {
+            display: none;
+        }
+        #mobile {
+            display: block;
+        }
+    }
+
+I created a [very simple demo of this concept using the airplane ticket search
+example](http://jsfiddle.net/machristie/01kypvf5/). In practice, you would want
+have your application code add and remove CSS classes from a top level element
+to drive hiding and showing different views, but I've left that sort of thing
+out.
+
+This "separate page" view could possible have a use on the desktop layout. You
+might have a situation where not all controls fit on the desktop layout so the
+same view to show all controls can be used on mobile and desktop.  On mobile it
+might be styled as a full page view, whereas on desktop it could be styled as a
+modal popup.
+
+Data binding is a little complicated in such a situation.  Ideally, if the user
+changes the size of the browser window then switching from "mobile" to "desktop"
+or vice versa should be seamless from a user input perspective. Using the
+airplane ticket search example, if I am in the "mobile" view and I type in a
+*Departing from* city and then decide to expand my browser and get the "desktop"
+view, then ideally the *Departing from* control in the "desktop" layout should
+be populated with what I had typed on the "mobile" view. This means that I need
+to bind to the *keypress* event and update my model as each key is typed in
+*Departing from* and keep the "mobile" and "desktop" *Departing from* fields in
+sync.
