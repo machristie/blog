@@ -111,3 +111,47 @@ be populated with what I had typed on the "mobile" view. This means that I need
 to bind to the *keypress* event and update my model as each key is typed in
 *Departing from* and keep the "mobile" and "desktop" *Departing from* fields in
 sync.
+
+Another challenge with this approach is that you, obviously, have two different
+views that have to be maintained. Arguably, this is one of the benefits of
+adopting MVC in the first place: your models are independent of views and models
+can have more than one view. However, it is still something extra that has to be
+maintained. It is probably better than having two separate sites though.
+
+##### List and detail views on separate pages (mobile) vs both on the same page (desktop)
+
+A common pattern with mobile apps is that you have a view(s) that display lists
+of data and tapping on a list item takes you to a view that displays details for
+that item.  Examples include inbox listing/email detail and contact
+listing/contact details.
+
+On desktop however there is enough space to show both the list and the detail,
+typically with the list on the left hand side and the detail view on the right.
+For example, an email client.
+
+Media queries can be used to achieve both of these layouts. One nice thing here
+is that the same views are used on mobile and on desktop. Its just on mobile
+they are separate "pages" and on desktop they are all on one page.
+
+How would you achieve this with media queries?  I won't flesh out an entire
+example here, but I will outline how it would be done.  The key I think is to
+have your SPA router add/remove CSS classes to a root element of the DOM. When
+the "list" class is added to the root element, the mobile media query will make
+just the list view visible, hiding the detail view.  For desktop, there is no
+additional work needed. Likewise, when transitioning to the detail route, the
+"list" class is removed from the root element and a "detail" class is added. The
+mobile media query would then hide the list view and make the detail view
+visible.  On desktop, the presence of the "detail" class on the root element
+might cause the currently selected item to be highlighted.
+
+One challenge that this approach highlights (and this was true of the "separate
+view" UI pattern above) is that although on mobile the user is seeing only one
+view at a time, those other views are still there.  For example, in an email
+client app, only the detail view may be visible, but the list view is still
+there and still responding to model updates.  So for example, if you have a
+periodic check for new email, then the list view is updating to display new
+email received.  This is more of a problem for mobile where off screen updates
+may cause performance to drag. On desktop the presence of alternate views that
+aren't on screen is unlikely to cause much of a problem.
+
+#### Challenges with doing responsive SPA
