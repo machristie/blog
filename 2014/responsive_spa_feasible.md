@@ -7,11 +7,11 @@
 I was recently working on a mobile version of
 [FuelMyRoute](http://fuelmyroute.com). I started by using jQuery Mobile and
 Backbone, but I found trying to use jQuery Mobile as a UI framework frustrating
-so I decided to give [Bootstrap](http://getbootstrap.com/) a try. I was able to
-convert my code over to Bootstrap fairly easily, but I started reading about and
-thinking about the responsive features of Bootstrap. This got me to thinking
-maybe I could make a responsive Single Page Application, one website that would
-work well on mobile devices and on desktop computers.
+so I decided to give [the Bootstrap CSS framework](http://getbootstrap.com/) a
+try. I was able to convert my code over to Bootstrap fairly easily, but I
+started reading about and thinking about the responsive features of Bootstrap.
+This got me to thinking maybe I could make a responsive Single Page Application,
+one website that would work well on mobile devices and on desktop computers.
 
 The benefits are pretty obvious I think. I don't relish the idea of maintaining
 two separate web applications. Especially when a lot of the non-UI code would be
@@ -43,6 +43,9 @@ This is a question I want to answer along with the following:
   layouts for *mobile* and *desktop* usage? Or would it be necessary to have the
   JavaScript code be aware of whether the application is in *mobile* or
   *desktop* mode? (Ideally the responsiveness would be implemented in CSS only)
+
+In this blog post I cover my initial thoughts about how a responsive SPA could
+work and what the challenges are likely to be.
 
 #### Responsive Mobile UI Patterns
 
@@ -91,9 +94,9 @@ the mobile view is hidden.
 
 I created a [very simple demo of this concept using the airplane ticket search
 example](http://jsfiddle.net/machristie/01kypvf5/). In practice, you would want
-have your application code add and remove CSS classes from a top level element
-to drive hiding and showing different views, but I've left that sort of thing
-out.
+to have your application code add and remove CSS classes from a top level
+element to drive hiding and showing different views, but I've left that sort of
+thing out.
 
 This "separate page" view could possible have a use on the desktop layout. You
 might have a situation where not all controls fit on the desktop layout so the
@@ -155,3 +158,68 @@ may cause performance to drag. On desktop the presence of alternate views that
 aren't on screen is unlikely to cause much of a problem.
 
 #### Challenges with doing responsive SPA
+
+Some of these challenges were mentioned above. Here I'll summarize them and also
+discuss how to address some of them. Not having experience developing a
+responsive SPA, this is mostly speculation about what I anticipate would be
+challenges building one.
+
+##### Sizing of controls
+
+It's possible to use media queries to size controls differently. You could for
+example make buttons large, more "tap friendly" on mobile screens and smaller on
+desktop screens.
+
+However, one would have to assume that small screens are tapped on and large
+screens are clicked on. And that assumption isn't valid in a lot of cases. For
+example, a mobile phone might have a stylus that is able to make very precise
+touches. As another example, there are now several Windows 8 devices, some that
+are tablet/laptop hybrids, that are basically desktop devices but allow for
+touch interaction.
+
+So I think a reasonable approach is to just **size all controls for tapping**.
+The tradeoff is that on desktop the controls are going to be "fatter" than
+necessary, meaning you won't be able to fit as many controls on the same page,
+but I don't think there is any reasonable alternative unless you want to
+aggravate uses with large touch screens.
+
+Also, the fact that you can't have as many controls on a desktop view is not
+necessarily a bad thing. It will lead to a simplification of the UI, which will
+probably end up being easier to use.
+
+##### Off screen view updates on mobile
+
+I mentioned this one above.  What can be done?  For one, I think some testing
+and validation that this causes an issue is necessary first.  Are DOM updates
+that are off screen as intensive as on screen ones for the browser to handle?
+Maybe, hopefully, not. I think it can very much depend on the application and
+might only affect certain views but not others.
+
+If it becomes a problem I think one thing that could be done is to delay
+re-rendering the view if the view is off screen.  Whenever it is ready to be
+brought back on screen the view could first be fully re-rendered. The problem
+here is that JS code now needs to know if the app is in "mobile" mode or
+"desktop" mode and so far I've been trying to keep the differences purely in CSS
+media queries.
+
+##### Duplicate UIs
+
+This one is mentioned above too.  This is most applicable when the "mobile"
+version of the app needs a completely different view from the "desktop" version.
+
+To mitigate this, first, obviously, try to use the same views for "mobile" and
+"desktop" and simply have them laid out differently.
+
+Also it should be said that the duplication of effort and maintenance is
+probably not nearly so much as having two separate sites.
+
+Also as mentioned above, there is also the data binding consideration: you'll
+want to keep the "mobile" and "desktop" views in sync at all times because the
+user could at any time transition from one to the other. In practice I think
+this requires only a little extra effort.  See the discussion on listening for
+*keypress* events above.
+
+#### Conclusion
+
+Well that's it for my initial thoughts. I hope to investigate this further and
+try some of these techniques out.
