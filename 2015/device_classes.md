@@ -85,10 +85,10 @@ There are some downsides with this separate app for device classes approach:
   maintenance overhead
 * Doesn't respond to orientation changes or browser resizing
     * However, it would be possible to combine both approaches. You might create
-      separate view for the mobile device class that itself uses media queries
+      a separate view for the mobile device class that itself uses media queries
       to adjust the UI between phone-like sizes and tablet-like sizes.
 
-On a closing note, there is one other thing I like about Smus approach.  He
+On a closing note, there is one other thing I like about Smus' approach.  He
 recommends having links in the app to the different device classes. This way if
 you are on a mobile phone and really want the desktop view, you can get to it. I
 think this is in line with the thinking from the last blog post that challenges
@@ -101,4 +101,7 @@ exist today. Hopefully the devices that arrive in the future will surprise us
 and challenge our assumptions. And hopefully our webapps will be ready.
 
 Additional Resources:
-* Really liked [this post by Brad Frost](http://bradfrost.com/blog/web/responsive-web-design-missing-the-point/) that Smus links to. He makes the point that while media queries are great, the most important thing to optimize on mobile is performance.
+* Really liked [this post by Brad
+  Frost](http://bradfrost.com/blog/web/responsive-web-design-missing-the-point/)
+  that Smus links to. He makes the point that while media queries are great, the
+  most important thing to optimize on mobile is performance.
