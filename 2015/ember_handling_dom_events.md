@@ -17,14 +17,17 @@ There are probably several ways to do this in Ember, but a fairly elegant
 solution I found the other day is to add a child view that encapsulate the part
 of your view that you want to have handle a specific event.
 
-The problem I had is that I wanted to handle an Enter keypress event in a text
-input element on my view in a specific way.
+For this example, I have several text input but on one of them I want to run
+validation when focus leaves that text input.  To make it a little more concrete
+let's say we're making an account registration form.
 
 Other example ideas?
 * unique username: but pretty sure you can use computed properties for this sort
   of thing
 * email validation: same thing
 * keypress ENTER is a pretty good case
+    * oops, no it isn't. {{inputs}} can have actions
+* what about a focusOut validator?
 
 We could just say that this is a contrived example.
 
