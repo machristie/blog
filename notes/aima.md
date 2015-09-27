@@ -5,7 +5,7 @@ Notes on [Artificial Intelligence: A Modern Approach, 2nd ed.](http://aima.cs.be
 ## Four approaches to AI
 
 1. Acting humanly: Turing Test approach
-    * Turning test not a real current goal (analogy: Wright
+    * Turing test not a real current goal (analogy: Wright
       brothers making progress when giving up trying to imitate birds)
 2. Thinking humanly: cognitive modeling/science
     * General Problem Solver (GPS) - emulate human reasoning
