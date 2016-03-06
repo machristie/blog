@@ -207,3 +207,115 @@ This yields a final solution of
     {   (   0   )       (   1 )     |                                   }
 
 
+## Linear Geometry
+
+### Vectors in space
+
+A *vector* has a magnitude and direction. Two vectors that have the same
+magnitude and direction are equal.
+
+The calculus description of a plane
+
+    P = { (x y z) | 2x + y + z = 4 }
+
+As vectors, solve for x, x = 2 - y/2 - z/2
+
+            ( 2 )   ( -1/2 )     ( -1/2 )
+    P = {   ( 0 ) + (   1  ) y + (  0   ) z | y,z e R }
+            ( 0 )   (   0  )     (  1   )
+
+A set of the form
+
+    { p_vec + t_1*v_vec_1 + t_2*v_vec_2 + ... + t_k*v_vec_k | t_1, ..., t_k e R }
+
+where `v_vec_1`, ..., `v_vec_k e R^n` and `k <= n`, is a k-dimensional linear
+surface (or k-flat).
+
+When the dimension of the linear surface is one less than the dimension of the
+space then it is called a hyperplane.
+
+A solution set of a linear system with n unknowns is a k-dimensional linear
+surface in `R^n`, where k is the number of free variables of the system in
+echelon form.
+
+The solution set of a homogeneous linear system is a linear surface passing
+through the origin.
+
+The general solution set of a linear system is the solution set of the
+associated homogeneous linear system offset from the origin by a particular
+solution vector.
+
+**Example (Exercise 1.6)**
+
+Intersect these two planes:
+
+      ( 1 )     ( 0 )
+    { ( 1 ) t + ( 1 ) s | t, s e R }
+      ( 1 )     ( 3 )
+
+and
+
+      ( 1 )   ( 0 )     ( 2 )
+    { ( 1 ) + ( 3 ) k + ( 0 ) m | k, m e R }
+      ( 0 )   ( 0 )     ( 4 )
+
+We can find all of the points where these planes have the same values by
+creating a linear system of where they are equal.
+
+    t           =   1       + 2m
+    t   + s     =   1   + 3k
+    t   + 3s    =             4m
+
+We can use Gauss's method to solve.  This gives that
+
+    k = 1/9*(-1 + 8m)
+
+Substituting back into the second plane yields
+
+      ( 1   )   ( 2   )
+    { ( 2/3 ) + ( 8/3 ) m | m e R }
+      ( 0   )   ( 4   )
+
+
+### Length and Angle Measures
+
+Length of a vector `v_vec e R^n`
+
+    |v_vec| = sqrt( v_1^2 + ... + v_n^2 )
+
+Angle between two vectors.  Using the law of cosines, where A, B, and C are
+sides of a triangle
+
+    A^2 + B^2 - 2ABcos(theta) = C^2
+
+Gives us for two vectors `u_vec` and `v_vec`
+
+    |u_vec - v_vec|^2 = |u_vec|^2 + |v_vec|^2 - 2|u_vec||v_vec|cos(theta)
+
+
+    theta = arccos( u_v . v_vec / |u_vec||v_vec| )
+
+where `.` means the dot product.
+
+Triangle inequality
+
+    | u_vec + v_vec | <= |u_vec| + |v_vec|
+
+The Triangle Inequality essentially says that the shortest distance between two
+points is a straight line. The result of this is that this proves that in higher
+dimensions lines are still straight and planes are flat.
+
+The Cauchy-Schwarz Inequality
+
+    | u_vec . v_vec | <= |u_vec||v_vec|
+
+That is, the absolute value of the dot product of two vectors is less than the
+product of their lengths.
+
+Cauchy-Schwarz guarantees that in the equation for the angle between vectors
+
+    theta = arccos( u_v . v_vec / |u_vec||v_vec| )
+
+the fraction has absolute value <= 1.
+
+Vectors are orthogonal if their dot product is 0.
