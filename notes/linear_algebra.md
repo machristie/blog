@@ -319,3 +319,60 @@ Cauchy-Schwarz guarantees that in the equation for the angle between vectors
 the fraction has absolute value <= 1.
 
 Vectors are orthogonal if their dot product is 0.
+
+
+## Reduced Echelon Form
+
+### Gauss-Jordan Reduction
+
+A matrix or linear system is in *reduced echelon form* if it is in echelon form
+and every leading entry is a 1 and is the only non-zero entry in its column. The
+approach is to reduce first to echelon form and then use the leading entries to
+remove entries in the rows above it.
+
+Between matrices, **reduces to** is an equivalence relation. An equivalence
+relation is reflexive, symmetric and transitive.
+
+Two matrices that are inter-reducible are part of a row equivalence class.
+
+
+**Example (Exercise 1.12a)**
+
+Find each solution set by using Gauss-Jordan reduction and then reading off the parametrization.
+
+    2x + y - z = 1
+    4x - y     = 3
+
+Convert to a matrix representation
+
+    (   2   1  -1   |   1   )
+    (   4  -1   0   |   3   )
+
+    -2*row_1 + row_2    => (   2   1  -1   |   1   )
+                           (   0  -3   2   |   1   )
+
+     1/2*row_1          => (   1 1/2 -1/2   | 1/2   )
+    -1/3*row_2             (   0   1 -2/3   |-1/3   )
+
+     -1/2*row_2 + row_1 => (   1   0 -1/6   | 2/3   )
+                           (   0   1 -2/3   |-1/3   )
+
+Reading off the parameterization, with `z` as the free variable, gives
+
+    x = 2/3 + (1/6)z
+    y = -1/3 + (2/3)z
+
+As a solution set
+
+        (  2/3 )    ( 1/6 )
+    {   ( -1/3 ) +  ( 2/3 ) z | z element of all real numbers }
+        (    0 )    (   1 )
+
+**Example (Exercise 1.14a)**
+
+List the reduced echelon forms possible for 2 x 2 matrices.
+
+    ( 1 0 )  ( 1 a )  ( 0 1 )  ( 0 0 )
+    ( 0 1 ), ( 0 1 ), ( 0 0 ), ( 0 0 )
+
+Where `a` is any real number.
