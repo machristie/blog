@@ -376,3 +376,23 @@ List the reduced echelon forms possible for 2 x 2 matrices.
     ( 0 1 ), ( 0 1 ), ( 0 0 ), ( 0 0 )
 
 Where `a` is any real number.
+
+### Linear Combination Lemma
+
+A linear combination of linear combinations is a linear combination.
+
+Each row of an original matrix is a linear combination of x's. Each row in the
+new matrix (after row operations) is a linear combination of the original
+matrix's rows, which are also linear combinations of x.
+
+**2.5 Lemma** In an echelon form matrix, no non-zero row is a linear combination
+of the other non-zero rows.
+
+**2.6 Theorem** Each matrix is row equivalent to a unique reduced echelon form
+matrix.
+
+Reduced echelon form matrices are representatives of the row equivalent class.
+
+> uniqueness of reduced echelon form lets us answer questions about row
+> equivalence classes by translating them into questions about their
+> representatives
