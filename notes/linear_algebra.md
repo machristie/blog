@@ -672,3 +672,107 @@ We can eliminate the third row by subtracting the second row from it. This
 leaves the following linearly independent set which is our basis.
 
     B = <1 + x, -x - x^2>
+
+# Chapter 3: Maps Between Spaces
+
+## Isomorphisms
+
+### Definition and Examples
+
+A *function* is a mapping from a domain to a codomain. The codomain might be
+larger than the "range" or set of all output values of a function. If the
+codomain is equal to the range then the function is *onto*.
+
+If `f(x_1) = f(x_2)` implies `x_1 = x_2` then f is *one-to-one*. That is, f is
+one-to-one if it maps values in the domain to unique values in the codomain.
+
+A function that is one-to-one and onto has a two sided inverse and is called a
+*correspondence*.
+
+An *isomorphism* between two spaces V and W is a map `f:V -> W` that
+1. is a correspondence - one-to-one and onto, and
+2. *preserves structure* - i.e., addition and scalar multiplication are preserved.
+
+An *automorphism* is an isomorphism of a space with itself. For example,
+scaling, rotating, reflecting.
+
+One way to show that a map preserves structure is to show that it preserves
+linear combinations of 2 vectors.
+
+    f(c_1*v_1 + c_2*v_2) = c_1*f(v_1) + c_2*f(v_2)
+
+**Showing that a map is an isomorphism**
+* Show that map is a correspondence
+  * Show one-to-one: show that `f(x) = f(y)` implies that `x = y`
+  * Show onto: show that for any member, y, of the codomain there is a member of
+    the domain, x, such that `f(x) = y`
+* Show that map preserves structure by showing it preserves linear combinations.
+  In other words, show that `f(c_1*v_1 + c_2*v_2) = c_1*f(v_1) + c_2*f(v_2)`
+
+**Example (Exercise 1.17b)**
+
+Show that `f:M_2x2 -> R^4` given by
+
+    ( a   b )  |--> ( a + b + c + d )
+    ( c   d )       ( a + b + c     )
+                    ( a + b         )
+                    ( a             )
+is an isomorphism.
+
+To show that f is an isomorphism, first show correspondence.
+* one-to-one: Show that `f(A) = f(B)` implies `A = B`
+
+      f( (a_1   b_1) )  =   f( (a_2   b_2) )
+       ( (c_1   d_1) )       ( (c_2   d_2) )
+
+      ( a_1 + b_1 + c_1 + d_1 )  =  ( a_2 + b_2 + c_2 + d_2 )
+      ( a_1 + b_1 + c_1       )     ( a_2 + b_2 + c_2       )
+      ( a_1 + b_1             )     ( a_2 + b_2             )
+      ( a_1                   )     ( a_2                   )
+
+  Solving for each component gives `a_1 = a_2`, `b_1 = b_2`, etc., so `A = B` and the map is one-to-one.
+* onto: show that any v in R^4 is the image of a matrix in `M_2x2`
+
+      ( x )   ( a + b + c + d )
+      ( y ) = ( a + b + c     )
+      ( z )   ( a + b         )
+      ( w )   ( a             )
+
+  Solving for a, b, c, and d gives
+
+      a = w
+      b = z - w
+      c = y - z
+      d = x - y
+
+  So our vector in R^4 is the image of the matrix
+
+      ( w       z - w )
+      ( y - z   x - y )
+
+Now we'll show that structure is preserved by showing that linear combinations
+are preserved.
+
+    f( r_1*(a_1   a_2)  +   r_2*(b_1 + b_2) )
+     (     (a_3   a_4)          (b_3 + b_4) )
+
+Expands to
+
+    f( r_1*a_1 + r_2*b_1      ... )
+     ( ...                    ... )
+
+    = (r_1*a_1 + r_2*b_1 + ... + r_1*a_4 + r_2*b_4 )
+      (r_1*a_1 + r_2*b_1 + ... + r_1*a_3 + r_2*b_3 )
+      (r_1*a_1 + r_2*b_1 + r_1*a_2 + r_2*b_2)
+      (r_1*a_1 + r_2*b_1)
+
+    = r_1 * (a_1 + a_2 + a_3 + a_4 ) + r_2 * (b_1 + b_2 + b_3 + b_4)
+            (a_1 + a_2 + a_3)                (b_1 + b_2 + b_3)
+            (a_1 + a_2)                      (b_1 + b_2)
+            (a_1)                            (b_1)
+
+    = r_1 * f(A) + r_2 * f(B)
+
+Where A is the `a_i` matrix and B is the `b_i` matrix.
+
+This shows that f is an isomorphism.
