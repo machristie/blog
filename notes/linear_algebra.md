@@ -776,3 +776,37 @@ Expands to
 Where A is the `a_i` matrix and B is the `b_i` matrix.
 
 This shows that f is an isomorphism.
+
+### Dimension Characterizes Isomorpism
+
+Theorem: Isomorpism is an equivalence relation between vector spaces. *is
+isomorphic to* means there exists a mapping that is an isomorphism between the
+two spaces.
+
+Theorem: vector spaces are isomorphic if and only if they have the same
+dimension. Consequently, a finite-dimensional vector space is isomorphic to one
+and only one of the R^n.
+
+For two spaces with the same dimension, you can pick a basis for each then
+derive a function that maps between representations in each space. See the
+following example.
+
+**Example (Exercise 2.10)**
+
+A space, V, in P_1 (polynomials up to degree 1) has a basis of
+
+    <1, 1 + x>
+
+and a space, W, in R^2 has the standard basis (<e_1, e_2>). Find a mapping between
+representations in each space.
+
+    a + bx = (a - b) * 1 + b * (1 - x) = (a - b) * e_1 + b * e_2
+
+    f(a + bx) = ( a - b )
+                (   b   )
+
+    a) f(3 - 2x) = ( 5 )
+                   (-2 )
+
+    b) f(2 + 2x) = ( 0 )
+                   ( 2 )
