@@ -810,3 +810,40 @@ representations in each space.
 
     b) f(2 + 2x) = ( 0 )
                    ( 2 )
+
+## Homomorphisms
+
+### Definition
+
+A function that preserves structure (or linear combinations) is a *homomorphism*
+or *linear map*. A homomorphism sends the zero vector to the zero vector in the
+codomain.
+
+A homomorphism is determined by its action on a basis. That is, it is fully
+determined by the image produced by each basis vector (`h(B_i) = w_i`). This
+homomorphism is unique. If there exists another homomorphism that maps the basis
+vectors to the same vectors in the codomain, then this other homomorphism must
+be the same.
+
+    h_hat(v) = h_hat(c_1*B_1 + ... + c_n*B_n) = c_1*h_hat(B_1) + ...
+             = c_1*w_1 + ... = h(v)
+
+Say we have vector spaces V and W. `B = <B_1, ..., B_n>` is the basis of V. We also have a function, f, that maps `B_i` to `w_i in W`. Then we can *linearly extend* f to `f_hat: V -> W` for all `v in V` where
+
+    v = c_1*B_1 + ... c_n*B_n
+
+the action of the map being
+
+    f_hat(v) = c_1*f(B_1) + ... + c_n*f(B_n)
+
+A linear map from a space to itself, `t: V -> V`, is a *linear transformation*.
+
+The set of linear function from `V -> W` is a vector space, a subspace of the space of all functions from `V -> W`. This subspace is denoted with the script L of V and W.
+
+    ℒ(V,W)
+
+**Showing that a map is a homomorphism**
+
+* Show that the map preserves structure by showing it preserves linear
+  combinations, just like with isomorphisms. For an example, see the section on
+  Isomorphisms.
