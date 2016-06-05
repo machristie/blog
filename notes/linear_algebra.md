@@ -847,3 +847,79 @@ The set of linear function from `V -> W` is a vector space, a subspace of the sp
 * Show that the map preserves structure by showing it preserves linear
   combinations, just like with isomorphisms. For an example, see the section on
   Isomorphisms.
+
+### Range Space and Null Space
+
+The image of a subspace of the domain is a subspace (of the codomain). The
+*range space* is the space of the image of the domain. The dimension of the
+range space is the map's rank.
+
+A homomorphism is *onto* the range, but not necessarily the codomain. Since a
+homomorphism is not one-to-one, several vectors in the domain may map to the
+same vector in the codomain. The inverse map gives the set of vectors in the
+domain that map to a vector in the codomain.
+
+    ( x )   f   ( x )
+    ( y ) |---> ( y )
+    ( z )
+
+    ( 1 )   f^-1    ( 1 )
+    ( 1 ) |-----> { ( 1 ) | z in R }
+                    ( z )
+
+Isomorphisms are "the same" but homomorphisms are "alike".  With the projection
+map `𝜋:R^3 -> R^2`, the analogy of how homomorphic spaces are "alike" is that
+`𝜋(v)` is the "shadow" of `v`. The shadow of the sum of vectors in R^3 equals
+the sum of their shadows.
+
+For a homomorphism, the image of a subspace of the range is a subspace of the
+domain. Special case: `h^-1(0)` is a subspace called the *null space* or
+*kernel* and the dimension is the map's nullity.
+
+An example of an inverse map:
+
+    ( x ) |--> x + y, the inverse is   c |---> { ( x ) | x + y = c, c in R }
+    ( y )                                        ( y )
+
+A linear map's rank + nullity = dimension of the domain.
+
+Under a linear map, the image of a linearly dependent set is linearly dependent.
+
+If V is n-dimensional, these are all equivalent statements about `h:V -> W`
+
+1. h is one-to-one
+2. h^-1 is linear
+3. null space is the trivial space; nullity = 0
+4. rank(h) = n
+5. `<h(B_1), ..., h(B_n)>` is a basis of the range of n.
+
+**Example (Exercise 2.23c, 2.24c)**
+
+For the map
+
+    h:M_2x2 -> R given by
+
+    ( a b ) |---> a + b + c + dx^2
+    ( c d )
+
+find the range space and rank.
+
+The range space is equal to
+
+    { s + tx^2 | s, t in R }, rank = 2
+
+where `s = a + b + c` and `t = d`.
+
+Now find the null space and nullity of this map.
+
+The null space is found by setting
+
+    a + b + c = 0
+    d = 0
+
+And substituting into the left side of the map, giving:
+
+    { (   a     b ) | a, b in R }
+      ( -(a+b)  0 )
+
+And the nullity is 2.
