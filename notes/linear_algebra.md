@@ -923,3 +923,67 @@ And substituting into the left side of the map, giving:
       ( -(a+b)  0 )
 
 And the nullity is 2.
+
+## Computing Linear Maps
+
+### Representing Linear Maps with Matrices
+
+We can represent linear maps with matrices.  These matrices multiplied by a
+vector in the domain yield its map.
+
+Definition: V, W are spaces with dimensions n and m respectively, with bases
+B and D and `h: V -> W`. If
+
+    Rep_D(h(B_1)) = ( h_1,1 )
+                    ( h_2,1 )
+                    ...
+                    ( h_m,1 )
+    ...
+    Rep_D(h(B_n)) = ( h_1,n )
+                    ( h_2,n )
+                    ...
+                    ( h_m,n )
+
+then
+
+    Rep_B,D(h) = ( h_1,1 h_1,2 ...  h_1,n )
+                 ( h_2,1 h_2,2 ...  h_2,n )
+                 ( ...   ...   ...  ...   )
+                 ( h_m,1 h_m,2 ...  h_m,n )
+
+is the *matrix representation of h with respect to B, D*.
+
+To compute the matrix representation of h for a given B, D, where you know the
+action on the basis vectors:
+* for each basis vector compute `h(B_i)`
+* find the representation in D of each `h(B_i)`: `Rep_D(h(B_i))`
+* these column vectors make up the columns of the matrix
+
+**Example (Exercise 1.17)**
+
+Represent the homomorphism h:R^3 -> R^2 given by this formula and with respect
+to these bases.
+
+    ( x )
+    ( y ) -> ( x + y )
+    ( z )    ( x + z )
+
+          ( 1 )  ( 1 )  ( 1 )
+    B = < ( 1 ), ( 1 ), ( 0 ) >   D = < ( 1 ), ( 0 ) >
+          ( 1 )  ( 0 )  ( 0 )           ( 0 ), ( 2 )
+
+First, compute h of the basis vectors.
+
+    h(B) = < ( 2 ), ( 2 ), ( 1 ) >
+             ( 2 )  ( 1 )  ( 1 )
+
+Second, find the representation in D of each mapped basis vector.
+
+    Rep_D(h(B)) = < ( 2 ), ( 2   ), ( 1   ) >
+                    ( 1 )  ( 1/2 )  ( 1/2 )
+
+Third, the column vectors make up the columns of the matrix:
+
+
+    Rep_B,D(h) = (  2   2   1  )
+                 (  1  1/2 1/2 )
