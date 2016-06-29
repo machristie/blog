@@ -987,3 +987,75 @@ Third, the column vectors make up the columns of the matrix:
 
     Rep_B,D(h) = (  2   2   1  )
                  (  1  1/2 1/2 )
+
+### Any Matrix Represents a Linear Map
+
+Any matrix represents represents a homomorphism between vector spaces of
+appropriate dimensions, WRT any pair of bases. Two different maps could be
+represented by the same matrix but by different pairs of bases.
+
+The rank of a matrix equals the rank of any map it represents.
+
+The matrix
+
+    ( 1   2   2 )
+    ( 1   2   1 )
+    ( 0   0   3 )
+    ( 0   0   2 )
+
+can represent a map with a 3 dimensional domain and 4 dimensional codomain.
+Since the rank of the matrix is 2, the range space of any map represented by
+this matrix must also be 2 dimensional.
+
+Let h be a linear map represented by matrix H. Then h is onto iff the rank of H
+is equal to the number of its rows (the dimension of the codomain), and h is
+one-to-one iff the rank of H equals the number of columns (the dimension of the
+domain).
+
+A linear map that is one-to-one and onto is *nonsingular*, otherwise it is
+*singuler*. That is, a linear map is nonsingular iff it is an isomorphism.
+* Lemma. A nonsingular linear map is represented by a square matrix. A square
+  matrix represents nonsingular maps iff it is nonsingular matrix. Thus a matrix
+  represents isomorphisms iff it is square and nonsingular.
+
+**Example (Exercise 2.18c)**
+
+Find the range space and rank of the map, as well as the null space and nullity
+of the map.
+
+Map `h:R^2 -> R^3` with standard bases, defined by the matrix
+
+    ( 1   1 | a )
+    ( 2   1 | b )
+    ( 3   1 | c )
+
+Using Gauss-Jordan reduction:
+
+    -2*row_1 + row_2
+    -3*row_1 + row_3
+    -2*row_2 + row_3
+    row_2 + row_1
+    -1*row_2
+
+    ( 1   0 | -a + b    )
+    ( 0   1 | 2a - b    )
+    ( 0   0 | a - 2b + c)
+
+Range space is then
+
+                 ( a )
+    Range(h) = { ( b ) | a = 2b - c }
+                 ( c )
+
+or
+
+                 ( 2 )     ( -1 )
+    Range(h) = { ( 1 ) b + (  0 ) c | b, c in R }
+                 ( 0 )     (  1 )
+
+Thus the rank is 2. Since the codomain has dimension of 3, this map isn't onto.
+
+To figure out the null space, set a = b = c = 0. This yields x = y = 0, so the
+trivial space is the null space and nullity(h) = 0. Another way to look at it is
+that the dimension of the domain is equal to the rank plus the nullity, so the
+nullity had to be 0. Since the nullity is 0 the map is one-to-one.
