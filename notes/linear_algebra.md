@@ -1059,3 +1059,20 @@ To figure out the null space, set a = b = c = 0. This yields x = y = 0, so the
 trivial space is the null space and nullity(h) = 0. Another way to look at it is
 that the dimension of the domain is equal to the rank plus the nullity, so the
 nullity had to be 0. Since the nullity is 0 the map is one-to-one.
+
+## Matrix operations
+
+### Sums and Scalar Products
+
+Multiplying a matrix by a scalar is defined as multiplying each matrix entry by
+that scalar. The sum of two matrices is made up of the item-wise sum of the
+entries in each matrix.
+
+Matrix scalar multiplication and addition are defined this way so as to
+correspond with the scalar multiplication and addition of the linear maps that
+they represent.
+
+**Example 1.8d**
+
+    4*( 1   2 ) + 5*( -1    4 ) = ( -1   28 )
+      ( 3  -1 )     ( -2    1 )   (  2    1 )
