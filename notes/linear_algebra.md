@@ -1072,7 +1072,107 @@ Matrix scalar multiplication and addition are defined this way so as to
 correspond with the scalar multiplication and addition of the linear maps that
 they represent.
 
-**Example 1.8d**
+**Example (Exercise 1.8d)**
 
     4*( 1   2 ) + 5*( -1    4 ) = ( -1   28 )
       ( 3  -1 )     ( -2    1 )   (  2    1 )
+
+### Matrix Multiplication
+
+The i,j-th entry in the matrix multiplication product of two matrices is defined
+as being equal to the dot product of the ith row of the first matrix and the jth
+column of the second matrix. Matrix multiplication is defined as such so as to
+represent the composition of linear maps that the matrices represent.
+
+Matrix multiplication is not commutative. This is because the number of columns
+of the first matrix must equal the number of rows of the second matrix.
+
+**Example (Exercise 2.19)**
+
+Given two linear functions h:R^3 -> P_2 and g:P_2 -> M_2x2 defined as such
+
+    ( a )
+    ( b ) --> (a + b)x^2 + (2a + 2b)x + c
+    ( c )
+and
+    px^2 + qx + r --> ( p   p - 2q )
+                      ( q     0    )
+
+Using these bases for the spaces.
+
+          ( 1 )  ( 0 )  ( 0 )
+    B = < ( 1 ), ( 1 ), ( 0 ) >
+          ( 1 )  ( 1 )  ( 1 )
+
+    C = < 1 + x, 1 - x, x^2 >
+
+    D = < (1 0), (0 2), (0 0), (0 0) >
+          (0 0)  (0 0)  (3 0)  (0 4)
+
+a) Give the formula for the composition map `g o h` derived directly from the
+above definition
+
+    ( a )     (   a + b     -3a - 3b )
+    ( b ) --> (  2a + 2b        0    )
+    ( c )
+
+b) Represent h and g with respect to the appropriate bases
+
+To do this, we'll apply h and g to their basis vectors to get the columns of the
+matrix representing h and g.
+
+                ( 1 )     (  5/2 )
+    h(B_1) = h( ( 1 ) ) = ( -3/2 )
+                ( 1 )     (  2   ) C
+
+And so on so that h is represented by
+
+                 (  5/2   3/2   1/2 )
+    Rep_B,C(h) = ( -3/2  -1/2   1/2 )
+                 (  2     1     0   )
+
+For g it is similar.
+
+    g(C_1) = g(1 + x) = g(0*x^2 + 1*x + 1) = ( 0  -2 )
+                                             ( 1   0 )
+           = (  0   )
+             ( -1   )
+             (  1/2 )
+             (  0   ) D
+And so on so that g is represented by
+
+    Rep_C,D(g) = (  0     0     1   )
+                 ( -1     1     1/2 )
+                 (  1/3  -1/3   0   )
+                 (  0     0     0   )
+
+c) Represent the map `g o h` computed in the first part with respect to the
+appropriate bases
+
+This is similar to b). Calculate `g o h` of the B basis vectors.
+
+                         ( 1 )
+    g o h (B_1) = g o h( ( 1 ) ) = g( 2x^2 + 4x + 1 ) = (  2 )
+                         ( 1 )                          ( -6 )
+                                                        (  4 )
+                                                        (  0 ) D
+And so on so that `g o h` is represented by
+
+    Rep_B,D(g o h) = ( -2   1   0 )
+                     (  3  -3/2 0 )
+                     (  4/3 2/3 0 )
+                     (  0   0   0 )
+
+d) Check that the product of the two matrices from the second part is the matrix
+from the third part.
+
+    Rep_C,D(g) * Rep_B,C(h) = (  0    0   1   ) * (  5/2   3/2  1/2 )
+                              ( -1    1   1/2 )   ( -3/2  -1/2  1/2 )
+                              (  1/3 -1/3 0   )   (  2     1    0   )
+                              (  0    0   0   )
+    = (  2    1   0 )
+      ( -3   -3/2 0 )
+      (  4/3  2/3 0 )
+      (  0    0   0 )
+
+And this matches what we got in part c).
