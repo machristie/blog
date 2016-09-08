@@ -1176,3 +1176,24 @@ from the third part.
       (  0    0   0 )
 
 And this matches what we got in part c).
+
+### Mechanics of Matrix Multiplication
+
+A matrix with all 0's except a 1 in the *i,j* entry is called a *matrix unit*
+(or *unit matrix*). Multiplied from the left, it copies the jth row into the ith
+row. Multiplied from the right, it copies the ith column into the jth column.
+
+The observation is that the multiplication of a matrix A with another matrix B
+can be rewritten such that A is a linear combination of unit matrices, each
+applied to B.
+
+There is a identity matrix which is a diagonal matrix with only 1's on the
+diagonal. A diagonal matrix multiplied from the left rescales the rows. A
+permutation matrix is square and all 0's except for a single 1 in each row and
+column.
+
+These techniques can be combined to create matrices that perform Gauss-Jordan
+reductions. A single Guassian operation is performed with an *elementary reduction matrix*:
+  1. `kp_i`: `I -> M_i(k)`, k != 0, ith row has k on diagonal
+  2. `p_i <=> p_j`: `I -> P_i,j`, for i != j, ith and jth rows switched
+  3. `kp_i + p_j`: `I -> C_i,j(k)`, for i != j, C is I with k in row j, column i.
