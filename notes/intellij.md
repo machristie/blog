@@ -7,6 +7,8 @@ Create a `~/.ideavimrc` file
 
 # Changing max file size for code insight
 
+*Not sure upping the filesize is a good idea*
+
 Help > Edit Custom Properties ...
 
     # custom IntelliJ IDEA properties
