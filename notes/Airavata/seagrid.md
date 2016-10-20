@@ -17,6 +17,6 @@ Log into airavata@gw77. Log files are in
 
 ## Airavata log files
 
-Log into root@gw56, `su airavata`. Log files are in
+Log into airavata@gw56, `su airavata`. Log files are in
 
     /home/airavata/dev-deployment/api-orch/apache-airavata-server-0.17-SNAPSHOT/logs
