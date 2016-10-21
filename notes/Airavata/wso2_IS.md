@@ -19,3 +19,22 @@
     * you can also view it in IS Management Console by logging in and going to the PDP Policy View
 
 # How would PGA/IS work with an external identity server?
+
+Let's assume [CILogon OpenID-Connect](http://www.cilogon.org/oidc).
+
+## Setup steps
+
+1. Register with https://cilogon.org/oauth2/register
+    * need the WSO2 IS callback URL: https://idp.scigap.org:9443/commonauth
+2. Register CILogon as an inbound authentication provider with WSO2 IS
+    * In WSO2 IS, under *Identity Providers*, click *Add* and follow the instructions for OpenID-Connect.
+
+## Process flow
+
+1. PGA needs to log in the user.
+2. PGA redirects to WSO2 IS.
+3. WSO2 IS redirects to 
+https://cilogon.org/authorize?response_type=code&client_id=myproxy:oa4mp,2012:/client_id/6e8fdae3459dac6c685c6b6de37c188c&redirect_uri=https://idp.scigap.org:9443/commonauth&scope=openid+profile+email+org.cilogon.userinfo
+4. User authenticates with his/her institution.
+5. CILogon redirects to callback URL (WSO2 IS): https://idp.scigap.org:9443/commonauth?code=https%3A%2F%2Fcilogon.org%2Foauth2%2FauthzGrant%2F331685b3f0a1b02590e9c36e19d3381%2F1454019750150
+
