@@ -1,10 +1,10 @@
 
 # Customizations
 
-## last-cursor-position
+## cursor-history
 
 To get Vim keybindings, add the following to keymap.cson
 
     'atom-workspace':
-      'ctrl-o': 'last-cursor-position:previous'
-      'ctrl-i': 'last-cursor-position:next'
+      'ctrl-o': 'cursor-history:prev'
+      'ctrl-i': 'cursor-history:next'

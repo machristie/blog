@@ -36,5 +36,45 @@ Let's assume [CILogon OpenID-Connect](http://www.cilogon.org/oidc).
 3. WSO2 IS redirects to 
 https://cilogon.org/authorize?response_type=code&client_id=myproxy:oa4mp,2012:/client_id/6e8fdae3459dac6c685c6b6de37c188c&redirect_uri=https://idp.scigap.org:9443/commonauth&scope=openid+profile+email+org.cilogon.userinfo
 4. User authenticates with his/her institution.
-5. CILogon redirects to callback URL (WSO2 IS): https://idp.scigap.org:9443/commonauth?code=https%3A%2F%2Fcilogon.org%2Foauth2%2FauthzGrant%2F331685b3f0a1b02590e9c36e19d3381%2F1454019750150
+5. CILogon redirects to callback URL (WSO2 IS): 
+https://idp.scigap.org:9443/commonauth?code=https%3A%2F%2Fcilogon.org%2Foauth2%2FauthzGrant%2F331685b3f0a1b02590e9c36e19d3381%2F1454019750150
 
+For the rest of this see Google doc.
+
+
+
+
+# Installing WSO2 IS
+
+See [installation instructions for getting started](http://airavata.readthedocs.io/en/latest/Own-WSO2-IS-Configuration/).
+
+Starting
+
+    # in bin/ directory
+    ./wso2server.sh start
+
+Logs are in repository/logs. wso2carbon.log seems to be the main one.
+
+[Admin username and password is admin/admin](https://docs.wso2.com/display/IS520/Running+the+Product).
+
+Super admin details can be found in the scigap portal's pga_config.php on gw75.
+
+## Setting up for local Airavata
+
+* Log in with admin/admin.
+* Create a new tenant.
+    * Domain: *airavata.local*
+* Register a new OAuth Service Provider.
+    * Add a new Service Provider
+    * Name: *Local-PGA-OAuth-Provider* (for example)
+    * Expand Inbound Authentication Configuration and expand OAuth/OpenID Connect Configuration
+    * Click *Configure*
+    * Give a callback URL of https://dev.seagrid.org/callback-url
+    * For *Allowed Grant Types* check *Code*, *Password*, *Client Credential* and *Refresh Token*.
+
+
+# Troubleshooting
+
+## Account got locked
+
+See https://docs.wso2.com/display/IS520/User+Account+Locking+and+Account+Disabling for how to enable unlocked through the admin interface.

@@ -53,7 +53,8 @@ See http://airavata.readthedocs.io/en/latest/Airavata-Upgrades/.  General proced
 6. Backup the old code
 
        cd ../..
-       mv apache-airavata-server-0.17-SNAPSHOTbk apache-airavata-server-0.17-SNAPSHOTbk2
+       tmp=`mktemp -d`
+       mv apache-airavata-server-0.17-SNAPSHOTbk/ $tmp/
        mv apache-airavata-server-0.17-SNAPSHOT apache-airavata-server-0.17-SNAPSHOTbk
 
 7. Untar the new code and copy over config files
@@ -71,4 +72,10 @@ See http://airavata.readthedocs.io/en/latest/Airavata-Upgrades/.  General proced
 
 9. Start the server in daemon mode
 
+    For registry
+
        ./airavata-server-start.sh -d regserver
+
+    For api-orch
+
+       ./airavata-server-start.sh -d api-orch

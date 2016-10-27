@@ -9,8 +9,8 @@
 2. Copy them into PGA
 
         cd target/gen-php/
-        cp -r Airavata/API/ /Library/WebServer/Documents/airavata-php-gateway/app/libraries/Airavata/API/
-        cp -f -r Airavata/Model/ /Library/WebServer/Documents/airavata-php-gateway/app/libraries/Airavata/Model/
+        cp -rnf Airavata/API/ /Library/WebServer/Documents/airavata-php-gateway/app/libraries/Airavata/API/
+        cp -rnf Airavata/Model/ /Library/WebServer/Documents/airavata-php-gateway/app/libraries/Airavata/Model/
 
 3. Composer stuff
 

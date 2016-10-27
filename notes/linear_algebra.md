@@ -1197,3 +1197,58 @@ reductions. A single Guassian operation is performed with an *elementary reducti
   1. `kp_i`: `I -> M_i(k)`, k != 0, ith row has k on diagonal
   2. `p_i <=> p_j`: `I -> P_i,j`, for i != j, ith and jth rows switched
   3. `kp_i + p_j`: `I -> C_i,j(k)`, for i != j, C is I with k in row j, column i.
+
+### Inverses
+
+The *left inverse* of f is g if ` g o f` is the identity function.
+
+The *right inverse* of f is g if `f o g` is the identity function.
+
+Example:
+
+    ( x ) pi ( x )      ( x )  i  ( x )
+    ( y ) -> ( y )      ( y )  -> ( y )
+    ( z )                         ( z )
+
+    pi o i = id on R^2
+
+which applies `i` and then `pi` to get the same thing, hence the composition is
+the identity function.
+
+A *two-sided inverse* can be applied to the left or right.  A function has a two sided inverse if and only if it is one-to-one and onto. If `f` is one-to-one and onto, the inverse is unique and called `f^-1`.
+
+For matrices it is similar. The left inverse matrix G of H is applied at `GH`.
+Right inverse would be `HG`. A matrix with a two sided inverse is an invertible
+matrix. A matrix is invertible only if it is nonsingular. (A map is nonsingular
+IFF it is one-to-one and onto.) The product of invertible matrices is invertible, `(GH)^-1 = H^-1G^-1`.
+
+We can use inverses to solve `h(x) = d`. h is represented by H (`Hx=d`). So `x =
+H^-1 d`. Why use inverses instead of Gauss-Jordan?
+* easy to solve other systems with same coefficients but different constants
+* explore a system's sensitivity.
+
+Can compute inverse of matrix by applying Gauss-Jordan reduction steps in the same order to an identity matrix.
+
+    R_r * R_r-1 ... R_1 * H = I
+                       H^-1 = R_r * R_r-1 ... R_1
+
+Corollary for 2x2 matrices.
+
+    ( a   b )^-1  = 1/(ad - bc) (  d  -b )
+    ( c   d )                   ( -c   a )
+
+**Example (Exercise 4.15a)**
+
+Find the inverse of
+
+    ( 3 1 )
+    ( 0 2 )
+
+Using Gauss-Jordan reduction of an identity matrix.
+
+    ( 3   1 | 1   0 )
+    ( 0   2 | 0   1 )
+
+Apply the following reductions
+* `1/3 row_1`, `1/2 row_2`
+* `-1/3 row_2 + row_1`
