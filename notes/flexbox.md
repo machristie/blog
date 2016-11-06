@@ -21,6 +21,9 @@ to set a height.
 The height: 1px thing is a hack to get child elements to size with respect
 to the min-height.  See http://stackoverflow.com/a/21836870.
 
+**NOTE: the height: 1px trick doesn't seem to work as well as I thought. It
+doesn't work right when the page is longer the viewport.**
+
 Note you can also push something to the bottom of the page by doing:
 
     body {
