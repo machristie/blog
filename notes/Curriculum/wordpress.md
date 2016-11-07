@@ -7,6 +7,21 @@ Book: *WordPress: The Missing Manual*
 * sometimes web servers return static web pages
 * but web servers can also execute computer code that generates a web page to return to the browser. This is called a *dynamic* web page.
 * WordPress is a computer program written in PHP that can be used to create a dynamic website, typically a blog.
+```
+<html>
+<body>
+    <ul>
+        <?php
+        $i = 1;
+        while ($i <= 10) {
+            echo '<li>Item ' . $i . '</li>';
+            $i = $i + 1;
+        }
+        ?>
+    </ul>
+</body>
+</html>
+```
 * The content of a WordPress site is stored in a *database*.  A database has tables in which it store different kinds of data.  In particular, WordPress uses the *MySQL* database which is a *relational database*. In relational database the tables of data are related to each other.
 
 # Installing WordPress
