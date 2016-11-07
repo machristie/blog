@@ -15,3 +15,12 @@
 3. Composer stuff
 
         composer dump-autoload
+
+
+# Running inside Homestead
+
+Follow these notes: https://laravel.com/docs/master/homestead
+
+* if you change networking or anything in Homestead.yaml, you'll need to then run in the Homestead/ directory
+
+      vagrant provision

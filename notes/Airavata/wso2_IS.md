@@ -41,6 +41,8 @@ https://idp.scigap.org:9443/commonauth?code=https%3A%2F%2Fcilogon.org%2Foauth2%2
 
 For the rest of this see Google doc.
 
+https://docs.google.com/document/d/1cDH11Qi8C9jIdFset8-TyBEnrwtPu8gml16R44wcMWY/edit#heading=h.dh01tydhwmxp
+
 
 
 
@@ -71,6 +73,17 @@ Super admin details can be found in the scigap portal's pga_config.php on gw75.
     * Click *Configure*
     * Give a callback URL of https://dev.seagrid.org/callback-url
     * For *Allowed Grant Types* check *Code*, *Password*, *Client Credential* and *Refresh Token*.
+
+## Other setup
+* in repository/conf/user-mgt.xml update UsernameJavaRegEx and RolenameJavaRegEx to include '-'
+```
+...
+<Property name="UsernameJavaRegEx">[a-zA-Z0-9._-|//\-]{3,30}$</Property>
+...
+<Property name="RolenameJavaRegEx">[a-zA-Z0-9._-|//\-]{3,30}$</Property>
+...
+```
+
 
 
 # Troubleshooting
