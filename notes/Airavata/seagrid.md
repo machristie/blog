@@ -40,7 +40,7 @@ See http://airavata.readthedocs.io/en/latest/Airavata-Upgrades/.  General proced
 
 1. Log into Airavata dev deployment. Go to `~/dev-airavata-source`
 2. `git pull`
-3. `mvn clean install -Dmaven.test.skip=true`
+3. `mvn clean install -DskipTests`
 4. Copy the distribution to the server directory that you want to upgrade. For example, for the registry server
 
         cp modules/distribution/target/apache-airavata-server-0.17-SNAPSHOT-bin.tar.gz ~/dev-deployment/registry/
@@ -70,6 +70,11 @@ See http://airavata.readthedocs.io/en/latest/Airavata-Upgrades/.  General proced
 
        cp ../../apache-airavata-server-0.17-SNAPSHOTbk/lib/mysql-connector-java-5.1.36-bin.jar ../lib/
 
+9. Temporary workaround for log4j jars (https://issues.apache.org/jira/browse/AIRAVATA-2205)
+
+        mv slf4j-log4j12-1.7.10.jar slf4j-log4j12-1.7.10.jar.bak
+        mv log4j-1.2.17.jar log4j-1.2.17.jar.bak
+
 9. Start the server in daemon mode
 
     For registry
@@ -79,3 +84,7 @@ See http://airavata.readthedocs.io/en/latest/Airavata-Upgrades/.  General proced
     For api-orch
 
        ./airavata-server-start.sh -d api-orch
+
+# Upgrading PGA
+
+http://airavata.readthedocs.io/en/latest/PGA-Upgrades/
