@@ -55,10 +55,9 @@ Book: *WordPress: The Missing Manual*
 * Media library - where images and other media are stored
 
 ## Mobile Apps
+* Setting up mobile app for blog posting
 
 TODO:
-* create the webfaction account
-* run through the webfaction install process
 * do we need FTP access?
 * install phpMyAdmin?
 * private blog?
