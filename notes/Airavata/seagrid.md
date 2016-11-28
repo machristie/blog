@@ -72,8 +72,10 @@ See http://airavata.readthedocs.io/en/latest/Airavata-Upgrades/.  General proced
 
 9. Temporary workaround for log4j jars (https://issues.apache.org/jira/browse/AIRAVATA-2205)
 
+        cd ../lib/
         mv slf4j-log4j12-1.7.10.jar slf4j-log4j12-1.7.10.jar.bak
         mv log4j-1.2.17.jar log4j-1.2.17.jar.bak
+        cd ../bin/
 
 9. Start the server in daemon mode
 
