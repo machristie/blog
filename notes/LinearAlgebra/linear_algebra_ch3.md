@@ -579,3 +579,33 @@ Using Gauss-Jordan reduction of an identity matrix.
 Apply the following reductions
 * `1/3 row_1`, `1/2 row_2`
 * `-1/3 row_2 + row_1`
+
+## Change of Basis
+
+### Changing Representations of Vectors
+
+*Change of basis matrix* for bases B, D in V is the representation of the identity map `id:V -> V` with respect to those bases
+
+```
+              ( ...             ...        )
+Rep_B,D(id) = ( Rep_D(B_1) ...  Rep_D(B_n) )
+              ( ...             ...        )
+```
+
+Lemma. A matrix is a change of basis matrix iff it is nonsingular.
+
+**Example (Exercise 1.7)**
+
+In R^2 where D = <(2 1), (-2 4)> and E_2=<(1 0), (0 1)>, find the change of basis matrices D to E_2 and from E_2 to D.  Multiply the two.
+
+```
+                   2           -2       ( 2 -2 )
+R_D,E_2 = ( R_E_2( 1 ), R_E_2(  4 ) ) = ( 1  4 )
+
+                 1         0       (  4/10   2/10 )
+R_E_2,D = ( R_D( 0 ), R_D( 1 ) ) = ( -1/10   2/10 )
+```
+
+Multiplying the two matrices yields the 2x2 identity matrix.
+
+Also R_E_2,D = (R_D,E_2)^-1
