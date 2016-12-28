@@ -9,7 +9,7 @@ Book: *WordPress: The Missing Manual*
 * sometimes web servers return static web pages
 * but web servers can also execute computer code that generates a web page to return to the browser. This is called a *dynamic* web page.
 * WordPress is a computer program written in PHP that can be used to create a dynamic website, typically a blog.
-```
+```html
 <html>
 <body>
     <ul>
@@ -57,7 +57,3 @@ Book: *WordPress: The Missing Manual*
 ## Mobile Apps
 * Setting up mobile app for blog posting
 
-TODO:
-* do we need FTP access?
-* install phpMyAdmin?
-* private blog?

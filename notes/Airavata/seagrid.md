@@ -47,12 +47,10 @@ See http://airavata.readthedocs.io/en/latest/Airavata-Upgrades/.  General proced
 5. Stop the old server
 
        cd ~/dev-deployment/registry/
-       cd apache-airavata-server-0.17-SNAPSHOT/bin/
-       # -f parameter is only needed if having trouble stopping server
-       ./airavata-server-stop.sh -f
+       # add -f parameter if having trouble stopping server
+       ./apache-airavata-server-0.17-SNAPSHOT/bin/airavata-server-stop.sh
 6. Backup the old code
 
-       cd ../..
        tmp=`mktemp -d`
        mv apache-airavata-server-0.17-SNAPSHOTbk/ $tmp/
        mv apache-airavata-server-0.17-SNAPSHOT apache-airavata-server-0.17-SNAPSHOTbk
