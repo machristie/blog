@@ -609,3 +609,36 @@ R_E_2,D = ( R_D( 0 ), R_D( 1 ) ) = ( -1/10   2/10 )
 Multiplying the two matrices yields the 2x2 identity matrix.
 
 Also R_E_2,D = (R_D,E_2)^-1
+
+
+### Changing Map Representations
+
+H and H_hat are *matrix equivalent* if there are nonsingular matrices P and Q
+such that
+
+    H_hat = PHQ
+
+Corollary. Matrix equivalent matrices represent the same map wrt an appropriate
+pair of bases.
+
+If H is a map from a space with base B to a space with base D and H_hat is a map
+from a space with base B_hat to a space with base D_hat, then P is the matrix
+that transforms vectors from D to D_hat and Q is the matrix that transforms
+vectors from B_hat to B.
+
+Two matrices are matrix equivalent if one can be converted into the other via a
+series of row operations followed by column operations.
+
+Matrices that are row equivalent are also matrix equivalent (Q=I), but the
+reverse doesn't necessarily hold.
+
+Two same sized matrices are matrix equivalent if they have the same rank.
+
+Theorem 2.6: Any mxn matrix of rank k is matrix equivalent to the mxn matrix
+that is all zeros except the first k diagonals are ones.  A matrix in this form
+is said to be in *block partial-identity form*
+
+To find P and Q, convert a matrix into block partial-identity form by first a
+series of row operations and then a series of column operations. The product of
+the matrices representing the row operations gives P and likewise for the
+product of the matrices representing the column operations gives Q.
