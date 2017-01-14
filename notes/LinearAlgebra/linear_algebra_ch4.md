@@ -30,3 +30,46 @@ components. We can use this fact to figure out the determinant.
 swaps (for sign changes), and row scaling (for scalar products)
 2. Second apply those sign changes and scalar multiplicands to the product of
 the diagonal.
+
+## The Permutation Expansion
+
+Problem is to show that the computation of determinant is well-defined (unique) result.
+
+A map, f:V<sup>n</sup> -> R, is *multilinear* if 
+    1. f(p_1, ..., v + w, ..., p_n) = f(p_1, ..., v, ..., p_n) + f(p_1, ..., w, ..., p_n)
+    2. f(p_1, ..., kv, ..., p_n) = k*f(p_1, ..., v, ..., p_n)
+
+Determinants are multilinear. Multilinearity allows us to break determinants into a sum of determinants.
+
+    | 2  1 | = | 2  0 | + | 0  1 |
+    | 4  3 | = | 4  3 |   | 4  3 |
+
+A *n-permutation* is a function on the first n positive integers that is one-to-one and onto.
+* 2-permutations:
+    * &phi;<sub>1</sub> = `<1, 2>`
+    * &phi;<sub>2</sub> = `<2, 1>`
+* 3-permutations:
+    * &phi;<sub>1</sub> = `<1, 2, 3>`
+    * &phi;<sub>2</sub> = `<1, 3, 2>`
+    * &phi;<sub>3</sub> = `<2, 1, 3>`
+    * &phi;<sub>4</sub> = `<2, 3, 1>`
+    * &phi;<sub>5</sub> = `<3, 1, 2>`
+    * &phi;<sub>6</sub> = `<3, 2, 1>`
+
+*Permutation matrices*:
+* P<sub>&phi;<sub>1</sub></sub> =
+      ( 1 0 )
+      ( 0 1 )
+* P<sub>&phi;<sub>2</sub></sub> =
+      ( 0 1 )
+      ( 1 0 )
+
+The permutation expansion for determinants of a nxn matrix with entries of the form t<sub>i, j</sub> is
+* t<sub>1,&phi;<sub>1</sub>(1)</sub>  t<sub>2,&phi;<sub>1</sub>(2)</sub> ... t<sub>n,&phi;<sub>1</sub>(n)</sub> | P<sub>&phi;<sub>1</sub></sub> |
+* \+ t<sub>1,&phi;<sub>2</sub>(1)</sub>  t<sub>2,&phi;<sub>2</sub>(2)</sub> ... t<sub>n,&phi;<sub>2</sub>(n)</sub> | P<sub>&phi;<sub>2</sub></sub> |
+* ...
+* \+ t<sub>1,&phi;<sub>k</sub>(1)</sub>  t<sub>2,&phi;<sub>k</sub>(2)</sub> ... t<sub>n,&phi;<sub>k</sub>(n)</sub> | P<sub>&phi;<sub>k</sub></sub> |
+    
+where &phi;<sub>1</sub>, ..., &phi;<sub>k</sub> are all of the n-permutations.
+
+The determinant of a matrix equals the determinant of its transpose. What holds for determinants wrt rows also holds wrt columns, i.e., column swaps change the sign of a determinant.
