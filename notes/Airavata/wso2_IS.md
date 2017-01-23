@@ -84,7 +84,37 @@ Super admin details can be found in the scigap portal's pga_config.php on gw75.
 ...
 ```
 
+# Adding a server certificate to the trusted store
 
+This section is helpful if you get the dreaded "unable to find valid
+certification path to requested target" error.
+
+## First, check to see if the certificate is already trusted
+
+Get the URLReader.java class from [the cilogon page](http://www.cilogon.org/cert-howto#TOC-Verifying-an-HTTPS-Certificate-with-Java).
+
+    java -Djavax.net.ssl.trustStore=/path/to/wsi-install/.../repository/resources/security/client-truststore.jks \ 
+      URLReader https://site-to-test.com/ > /dev/null
+
+If you get an error from that command then the client-truststore isn't able to verify the sites certificate.
+
+## Second, install the certificate
+
+The following tries to install the certificate globally which isn't necessarily
+helpful for installing the cert into the client-truststore.jks, but it should
+get you started.
+
+Follow [the instructions in this StackOverflow answer](http://stackoverflow.com/a/36874647)
+to get the InstallCert.java file.  Then run it like so
+
+    javac InstallCert.java
+    java InstallCert https://site-to-test.com
+
+This will generate a file called jssecacerts.
+
+## TODO
+
+* how to get the certificate out of jssecacerts and then import into client-truststore.jks
 
 # Troubleshooting
 

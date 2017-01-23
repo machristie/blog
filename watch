@@ -2,7 +2,7 @@
 
 TMPDIR=`mktemp -d /tmp/markdown.XXXXXXXX`
 TMP=$TMPDIR/t.html
-MARKDOWN="markdown_py -x codehilite -x tables"
+MARKDOWN="markdown_py -x markdown.extensions.codehilite -x markdown.extensions.fenced_code -x tables"
 COMMAND="$MARKDOWN $1"
 $COMMAND > $TMP
 open $TMP
