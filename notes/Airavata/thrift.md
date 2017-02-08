@@ -67,3 +67,17 @@ Solution
 
 I'm going to just ignore for now. I don't know what that is. I did find this
 though https://github.com/Homebrew/legacy-homebrew/issues/15937
+
+
+# Using Docker
+
+For 0.9.3 you can copy the Dockerfile from the 0.10.0 release. To build
+different versions of Thrift as docker images, set a tag name with the verison
+number in it
+
+    docker build -t thrift-0.9.3 .
+
+Run it like so
+
+    docker run --rm -v "$PWD:/data" thrift-0.9.3 -gen cpp -o /data/ /data/test/ThriftTest.thrift
+
