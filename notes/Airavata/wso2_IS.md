@@ -121,3 +121,7 @@ This will generate a file called jssecacerts.
 ## Account got locked
 
 See https://docs.wso2.com/display/IS520/User+Account+Locking+and+Account+Disabling for how to enable unlocked through the admin interface.
+
+# MISC
+
+* [Adding tenant dropdown to login page](https://docs.wso2.com/display/IS510/Customizing+the+Authentication+Endpoint)
