@@ -73,3 +73,21 @@ The permutation expansion for determinants of a nxn matrix with entries of the f
 where &phi;<sub>1</sub>, ..., &phi;<sub>k</sub> are all of the n-permutations.
 
 The determinant of a matrix equals the determinant of its transpose. What holds for determinants wrt rows also holds wrt columns, i.e., column swaps change the sign of a determinant.
+
+
+# Geometry of Determinants
+
+## Determinants as Size Functions
+
+The volume or area of the "box" formed by 2 or more vectors is equal to the
+absolute value of the determinant of the matrix of those column vectors.
+
+The determinant of the product of two matrices is the product of the
+determinants of the matrices.
+
+    | TS | = | T | * | S |
+
+The orientation of a box is related to the sign of the determinant of the matrix
+of column vectors defining the box. For transformations, if the sign of the
+determinant of the transformation is negative then it changes the box's
+orientation.
