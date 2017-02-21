@@ -91,3 +91,32 @@ The orientation of a box is related to the sign of the determinant of the matrix
 of column vectors defining the box. For transformations, if the sign of the
 determinant of the transformation is negative then it changes the box's
 orientation.
+
+# Laplace's Formula
+
+## Laplace's Expansion
+
+For a nxn matrix T, the i,j *minor* of T is the (n-1)x(n-1) matrix formed by
+removing the ith row and jth column of T. The i,j *cofactor* of T, called
+T<sub>i,j</sub>, is (-1)<sup>i+j</sup> times the determinant of the i,j minor of
+T.
+        ( 1 2 3 )
+    T = ( 4 5 6 )
+        ( 7 8 9 )
+    
+    T_2,3 = (-1)^2+3 * | 1 2 |  =  -1 * (8 - 14) = 6
+                       | 7 8 |
+
+*Laplace's expansion of determinants*: the determinant of T can be found by 
+expanding cofactors of any row or column.
+
+* |T| = t<sub>i,1</sub>T<sub>i,1</sub> + t<sub>i,2</sub>T<sub>i,2</sub> + ... + t<sub>i,n</sub>T<sub>i,n</sub>
+* |T| = t<sub>j,1</sub>T<sub>j,1</sub> + t<sub>j,2</sub>T<sub>j,2</sub> + ... + t<sub>n,j</sub>T<sub>n,j</sub>
+
+The adjoint matrix of T is a matrix where the i,j entry is the 
+T<sub>j,i</sub> cofactor. The adjoint of T is notated as `adj(T)`.
+
+    T*adj(T) = |T|*I
+
+So a formula for T<sup>-1</sup> is <sup>1</sup>&frasl;<sub>|T|</sub>*adj(T)
+
