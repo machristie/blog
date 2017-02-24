@@ -13,3 +13,4 @@
     git config --global alias.st status
     git config --global alias.co checkout
     git config --global alias.glog 'log --decorate --oneline --graph'
+    git config --global alias.todos 'diff develop.. -STODO'
