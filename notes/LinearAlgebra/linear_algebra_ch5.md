@@ -36,3 +36,52 @@ d) Compute matrices for the base-to-base transformations (the sides of the arrow
 For Rep<sub>B,D</sub>(id), represent in D each basis vector of B. This gives you the columns.
 
 For Rep<sub>D,B</sub>(id), represent in B each basis vector of D. This gives you the columns. Alternatively, you can take the inverse of Rep<sub>B,D</sub>(id).
+
+### Diagonalizability
+
+For matrix equivalence classes there is a canonical form, the block partial
+identity matrix. We want a canonical form for similarity classes too.
+
+T is diagonalizable if there is a nonsingular P such that PTP<sup>-1</sup> is
+diagonal. A transformation or matrix is diagonalizable if there exists a diagonal representation of the transformation wrt some domain and codomain having the same basis.
+
+For example,
+```
+T = ( a  b )
+    ( c  d )
+```
+
+T is diagonalizable if there is a nonsingular P such that PTP<sup>-1</sup> = 
+```
+( x  0 )
+( 0  y )
+```
+
+However, we can't always find a diagonal matrix for each similarity class, for example
+```
+( 0  0 )
+( 1  0 )
+```
+
+A transformation t is diagonalizable iff there is a basis B =
+&lt;b<sub>1</sub>,...b<sub>n</sub>> and scalars l<sub>1</sub>,...,l<sub>n</sub>
+such that t(b<sub>i</sub>) = l<sub>i</sub>b<sub>i</sub>.
+
+To diagonalize 2x2 matrix find basis B = &lt;b<sub>1</sub>, b<sub>2</sub>> such that Rep<sub>B,B</sub>(t) = 
+```
+( l_1  0 )
+( 0  l_2 )
+```
+
+So we seek a solution of the form
+```
+( a  b ) b_1 = l_1 b_1
+( c  d )
+
+( a  b ) b_2 = l_1 b_2
+( c  d )
+
+( a  b ) ( y_1 ) = x ( y_1 )
+( c  d ) ( y_2 )     ( y_2 )
+```
+where y<sub>1</sub>, y<sub>2</sub> are the components of the basis vectors in B.
