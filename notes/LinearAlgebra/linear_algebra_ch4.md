@@ -100,6 +100,7 @@ For a nxn matrix T, the i,j *minor* of T is the (n-1)x(n-1) matrix formed by
 removing the ith row and jth column of T. The i,j *cofactor* of T, called
 T<sub>i,j</sub>, is (-1)<sup>i+j</sup> times the determinant of the i,j minor of
 T.
+
         ( 1 2 3 )
     T = ( 4 5 6 )
         ( 7 8 9 )
