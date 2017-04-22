@@ -85,3 +85,31 @@ So we seek a solution of the form
 ( c  d ) ( y_2 )     ( y_2 )
 ```
 where y<sub>1</sub>, y<sub>2</sub> are the components of the basis vectors in B.
+
+### Eigenvalues and Eigenvectors
+
+A transformation t has eigenvalue l and eigenvector e if `t(e) = l*e`. Likewise
+for matrices.
+
+Similar matrices need not have the same eigenvectors.  This is because similar matrices are transformations wrt different bases. The eigenvectors are the same, but represented differently in different bases.
+
+To find eigenvalues and eigenvectors of T 
+1. solve `|T - xI| = 0` to find possible values of x, which are the eigenvalues.
+2. For each eigenvalue, plug it in to `(T - xI)v = 0` to find v, which are the
+eigenvectors for that eigenvalue.
+
+Why `|T - xI| = 0`? If the `T - xI` is nonsingular then the only solution is the
+0 vector, so the only eigenvector would be the 0 vector, which isn't allowed.
+So `T - xI` must be singular to have eigenvectors, which means the determinant
+must be 0.
+
+Definitions:
+* *characteristic polynomial* of square matrix T is `|T - xI|`. *Characteristic equation* is `|T - xI| = 0`.
+* *eigenspace* of a transformation t with eigenvalue l is `{v | t(v) = lv}`
+
+An eigenspace is a subspace.  If a matrix has a set of distinct eigenvalues, if
+you take one eigenvector for each eigenvalue, you get a linearly independent set
+of vectors. 
+
+An nxn matrix is diagonalizable iff there are n distinct eigenvalues. 
+
