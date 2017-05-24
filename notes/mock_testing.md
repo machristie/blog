@@ -51,3 +51,6 @@
   into their own method so that the mock dependency is called once in the test
   class. This makes it easier to refactor code later on since you would
   theoretically only have to update the dependency mock call once.
+
+## Links
+* https://www.reddit.com/r/programming/comments/6abbb7/stop_overusing_interfaces/dhdizfl/
